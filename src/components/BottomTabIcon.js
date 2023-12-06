@@ -27,7 +27,7 @@ export const BottomTabIcon = ({ routeName, focused }) => {
                     source={require('./../img/bottomNav/history_inactive.png')}
                 />
             }
-        case 'Map':
+        case 'TrainingGoals':
             if(focused) {
                 return <Image
                     style={styles.imgActive}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { WeeklyAchievements, MainScreen, Map } from '../views';
+import { WeeklyAchievements, MainScreen, TrainingGoals } from '../views';
 import { BottomTabIcon } from '../components/BottomTabIcon';
 
 const optionScreen = {
@@ -29,7 +29,7 @@ export default function BottomTabNav() {
         component={MainScreen}
         options={optionScreen}
       />
-      <Tab.Screen name="Map" component={Map} options={optionScreen} />
+      <Tab.Screen name="TrainingGoals" component={TrainingGoals} options={optionScreen} />
     </Tab.Navigator>
   );
 }
