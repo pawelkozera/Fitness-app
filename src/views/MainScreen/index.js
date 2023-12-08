@@ -5,8 +5,10 @@ import { Accelerometer, Magnetometer } from 'expo-sensors';
 import haversine from 'haversine';
 import * as Location from 'expo-location';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import { useTheme } from '../../context/ThemeContext';
 
 export function MainScreen({ navigation }) {
+  const {theme} = useTheme();
   const [isTrainingStarted, setIsTrainingStarted] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0.0);
   const [duration, setDuration] = useState(0.0);
@@ -158,7 +160,7 @@ export function MainScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={theme.background}>
       <MapView
         style={{ flex: 0.5 }}
         region={region}
@@ -177,11 +179,11 @@ export function MainScreen({ navigation }) {
         <Polyline coordinates={coordinates} strokeWidth={5} strokeColor="blue" />
       </MapView>
 
-      <View style={{ flex: 0.5, padding: 16 }}>
-        <Text> Distance: {totalDistance.toFixed(2)} km </Text>
-        <Text> Duration: {duration.toFixed(2)} seconds </Text>
-        <Text> Pace: {pace.toFixed(2)} km/h </Text>
-        <Text> Calories: {calories.toFixed(2)} kcal </Text>
+      <View style={[theme.container, {flex:0.5, borderTopLeftRadius: 0,borderTopRightRadius: 0}]}>
+        <Text style={theme.text}> Distance: {totalDistance.toFixed(2)} km </Text>
+        <Text style={theme.text}> Duration: {duration.toFixed(2)} seconds </Text>
+        <Text style={theme.text}> Pace: {pace.toFixed(2)} km/h </Text>
+        <Text style={theme.text}> Calories: {calories.toFixed(2)} kcal </Text>
         <Button
           title={isTrainingStarted ? 'Stop Training' : 'Start Training'}
           onPress={trainingButton}

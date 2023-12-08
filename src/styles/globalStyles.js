@@ -21,7 +21,7 @@ export const darkTheme = {
         alignItems: 'center',
         backgroundColor: '#28275E',
         padding: 50,
-        marginTop: 10,
+        marginTop: 5,
         borderTopLeftRadius: 60,
         borderTopRightRadius: 60,
     },

@@ -1,10 +1,15 @@
 import {Text, View} from "react-native";
+import { useTheme } from "../../context/ThemeContext";
 
 
 export function TrainingHistory({ navigation }) {
+    const {theme} = useTheme();
+
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>TrainingHistory</Text>
+        <View style={theme.background}>
+            <View style={theme.container}>
+                <Text style={theme.text}>TrainingHistory</Text>
+            </View>
         </View>
     );
 }
