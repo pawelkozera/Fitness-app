@@ -13,9 +13,9 @@ export default function DrawerNav() {
     <Drawer.Navigator initialRouteName="Main"
     screenOptions={{
       headerStyle: {
-          backgroundColor: theme.drawer.headerBackground,
+          backgroundColor: theme.navigation.headerBackground,
       },
-      headerTintColor: theme.drawer.headerText, 
+      headerTintColor: theme.navigation.headerText, 
   }}>
         <Drawer.Screen name="Main" component={BottomTabNav} />
         <Drawer.Screen name="Training History" component={TrainingHistory} />

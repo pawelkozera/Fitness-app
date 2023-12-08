@@ -7,9 +7,10 @@ export const lightTheme = {
   };
   
 export const darkTheme = {
-    drawer: {
+    navigation: {
         headerBackground: '#3F3E7D',
         headerText: "#fff",
+        bottomBackground: '#080814',
     },
     background: {
         flex: 1,
