@@ -3,19 +3,24 @@ import { darkTheme, lightTheme } from "../styles/globalStyles";
 
 
 const ThemeContext = createContext({
-    theme: darkTheme,
-    toggleTheme: () => {},
+    theme: darkTheme, 
+    toggleTheme: () => {}, 
+    isDarkTheme: true, 
 });
 
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({children}) => {
     const [isDarkTheme, setIsDarkTheme] = useState(true);
-    const toggleTheme = () => setIsDarkTheme(!isDarkTheme); 
+
+    const toggleTheme = () => {
+        setIsDarkTheme(!isDarkTheme); 
+    };
+
     const theme = isDarkTheme ? darkTheme : lightTheme;
 
     return (
-        <ThemeContext.Provider value={{theme, toggleTheme}}>
+        <ThemeContext.Provider value={{ theme, toggleTheme, isDarkTheme }}>
             {children}
         </ThemeContext.Provider>
     );
