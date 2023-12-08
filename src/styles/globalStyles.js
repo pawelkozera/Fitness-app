@@ -9,8 +9,10 @@ export const lightTheme = {
 export const darkTheme = {
     navigation: {
         headerBackground: '#3F3E7D',
-        headerText: "#fff",
+        text: "#fff",
+        inactiveText: '#a4a3a8',
         bottomBackground: '#080814',
+        drawerBackground: '#3B3A8C',
     },
     background: {
         flex: 1,

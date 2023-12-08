@@ -15,7 +15,16 @@ export default function DrawerNav() {
       headerStyle: {
           backgroundColor: theme.navigation.headerBackground,
       },
-      headerTintColor: theme.navigation.headerText, 
+      drawerStyle: {
+          backgroundColor: theme.navigation.drawerBackground, 
+      },
+      drawerLabelStyle: {
+        fontSize: 22,
+        fontWeight: 'bold',
+      },
+      headerTintColor: theme.navigation.text, 
+      drawerActiveTintColor: theme.navigation.text, 
+      drawerInactiveTintColor: theme.navigation.inactiveText,
   }}>
         <Drawer.Screen name="Main" component={BottomTabNav} />
         <Drawer.Screen name="Training History" component={TrainingHistory} />
