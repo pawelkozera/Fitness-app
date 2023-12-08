@@ -2,21 +2,21 @@ import { StyleSheet } from "react-native";
 
 export const lightTheme = {
     navigation: {
-        headerBackground: '#FFFFFF', 
-        text: "#000000", 
-        inactiveText: '#646464',
-        bottomBackground: '#F0F0F0', 
-        drawerBackground: '#E5E5E5', 
+        headerBackground: '#bbbbfa',
+        text: "#1F1F1F", 
+        inactiveText: '#5f5f66', 
+        bottomBackground: '#0a0a1f', 
+        drawerBackground: '#c3c3fa', 
     },
     background: {
         flex: 1,
-        backgroundColor: '#F0F0F0',
+        backgroundColor: '#bbbbfa', 
     },
     container: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF', 
+        backgroundColor: '#a3a3f7', 
         padding: 50,
         marginTop: 5,
         borderTopLeftRadius: 60,
@@ -24,23 +24,22 @@ export const lightTheme = {
     },
     backgroundItem: {
         alignItems: 'center',
-        backgroundColor: '#F8F8F8',
+        backgroundColor: '#bbbbfa', 
         padding: 20,
         borderRadius: 50,
     },
     text: {
         fontSize: 20, 
         fontWeight: '600',
-        color: '#000000',
+        color: '#1F1F1F',
     },
     switch: {
-        trackFalseColor: '#E1E1E1',
-        trackTrueColor: '#B6E0FF', 
-        thumbFalseColor: '#FFFFFF', 
-        thumbTrueColor: '#007AFF', 
+        trackFalseColor: '#DAD7E0', // 
+        trackTrueColor: '#B9A6FF',
+        thumbFalseColor: '#FFFFFF',
+        thumbTrueColor: '#7F7AFF', 
     },
 };
-
   
 export const darkTheme = {
     navigation: {
