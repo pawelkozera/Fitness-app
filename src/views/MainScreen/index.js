@@ -4,12 +4,12 @@ import { Dimensions, Text, Button, View } from 'react-native';
 import { Accelerometer, Magnetometer } from 'expo-sensors';
 import haversine from 'haversine';
 import * as Location from 'expo-location';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import { useTheme } from '../../context/ThemeContext';
 
 export function MainScreen({ navigation }) {
   const {theme} = useTheme();
   const [isTrainingStarted, setIsTrainingStarted] = useState(false);
+  const [firstRun, setFirstRun] = useState(true);
   const [totalDistance, setTotalDistance] = useState(0.0);
   const [duration, setDuration] = useState(0.0);
   const [pace, setPace] = useState(0.0);
@@ -44,7 +44,7 @@ export function MainScreen({ navigation }) {
     startTime = Date.now();
 
     intervalId = setInterval(updateTraining, 500);
-    intervalIdGetLocation = setInterval(getLocation, 5000);
+    intervalIdGetLocation = setInterval(getLocationWhenTrainingStarted, 5000);
   };
 
   const stopTraining = () => {
@@ -75,44 +75,53 @@ export function MainScreen({ navigation }) {
     return distance * 0.5;
   };
 
-  const getLocation = async () => {
+  const getLocationWhenTrainingStarted = async () => {
     if (isTrainingStarted) {
-      try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-          console.error('Permission to access location was denied');
-          return;
-        }
-
-        const location = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.Highest,
-        });
-
-        const { latitude, longitude } = location.coords;
-
-        setRegion({
-          latitude,
-          longitude,
-          latitudeDelta: currentZoom / 2,
-          longitudeDelta: (currentZoom / 2) * (DeviceWidth / DeviceHeight),
-        });
-
-        const newLocation = { latitude, longitude };
-
-        if (lastLocation) {
-          const distanceCovered = haversine(lastLocation, newLocation, { unit: 'km' });
-          setTotalDistance((prevDistance) => prevDistance + distanceCovered);
-        }
-
-        setCoordinates((prevCoordinates) => [...prevCoordinates, newLocation]);
-        setLastLocation(newLocation);
-
-        setLastLocation({ latitude, longitude });
-      } catch (error) {
-        console.error('Error getting location:', error);
-      }
+      getLocation();
     }
   };
+
+  const getLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.error('Permission to access location was denied');
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Highest,
+      });
+
+      const { latitude, longitude } = location.coords;
+
+      setRegion({
+        latitude,
+        longitude,
+        latitudeDelta: currentZoom / 2,
+        longitudeDelta: (currentZoom / 2) * (DeviceWidth / DeviceHeight),
+      });
+
+      const newLocation = { latitude, longitude };
+
+      if (lastLocation) {
+        const distanceCovered = haversine(lastLocation, newLocation, { unit: 'km' });
+        setTotalDistance((prevDistance) => prevDistance + distanceCovered);
+      }
+
+      setCoordinates((prevCoordinates) => [...prevCoordinates, newLocation]);
+      setLastLocation(newLocation);
+
+      setLastLocation({ latitude, longitude });
+    } catch (error) {
+      console.error('Error getting location:', error);
+    }
+  }
+
+  if (firstRun) {
+    setFirstRun(false);
+    getLocation();
+  }
 
   useEffect(() => {
     accelerometerSubscription.current = Accelerometer.addListener(({ x, y, z }) => {
@@ -127,7 +136,7 @@ export function MainScreen({ navigation }) {
     });
 
     intervalId = setInterval(updateTraining, 500);
-    intervalIdGetLocation = setInterval(getLocation, 5000);
+    intervalIdGetLocation = setInterval(getLocationWhenTrainingStarted, 5000);
 
     return () => {
       clearInterval(intervalId);
@@ -179,15 +188,23 @@ export function MainScreen({ navigation }) {
         <Polyline coordinates={coordinates} strokeWidth={5} strokeColor="blue" />
       </MapView>
 
-      <View style={[theme.container, {flex:0.5, borderTopLeftRadius: 0,borderTopRightRadius: 0}]}>
-        <Text style={theme.text}> Distance: {totalDistance.toFixed(2)} km </Text>
-        <Text style={theme.text}> Duration: {duration.toFixed(2)} seconds </Text>
-        <Text style={theme.text}> Pace: {pace.toFixed(2)} km/h </Text>
-        <Text style={theme.text}> Calories: {calories.toFixed(2)} kcal </Text>
+      <View style={[theme.container, {flex:0.5, borderTopLeftRadius: 0,borderTopRightRadius: 0, padding: 0}]}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
+          <Text style={theme.text}> Distance: {totalDistance.toFixed(2)} km </Text>
+          <Text style={theme.text}> Duration: {duration.toFixed(2)} s </Text>
+          <Text style={theme.text}> Pace: {pace.toFixed(2)} km/h </Text>
+          <Text style={theme.text}> Calories: {calories.toFixed(2)} kcal </Text>
+        </View>
         <Button
           title={isTrainingStarted ? 'Stop Training' : 'Start Training'}
           onPress={trainingButton}
         />
+        {(duration != 0 && !isTrainingStarted) && (  
+          <View>
+            <Button title={"Save route"} />
+            <Button title={"Save training"} />
+          </View>
+        )}
       </View>
     </View>
   );
