@@ -6,6 +6,7 @@ import {PocketWorkouts} from './PocketWorkouts';
 import {TrainingHistory} from './TrainingHistory';
 import {Routes} from './Routes';
 import {TrainingGoals} from './TrainingGoals';
+import { WorkoutsDetails } from "./WorkoutsDetails";
 
 
-export { WeeklyAchievements, MainScreen, Map, Settings, PocketWorkouts, TrainingHistory, Routes, TrainingGoals }
+export { WeeklyAchievements, MainScreen, Map, Settings, PocketWorkouts, TrainingHistory, Routes, TrainingGoals, WorkoutsDetails }

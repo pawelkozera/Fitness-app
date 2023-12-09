@@ -2,6 +2,8 @@ import { useTheme } from "../../context/ThemeContext";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import { styles } from "./style";
 import { TouchableOpacity, View, Text, SafeAreaView } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import PocketWorkoutsNav from "../../navigation/PocketWorkoutsNavigator";
 
 const DATA = [
     {
@@ -27,7 +29,7 @@ export function PocketWorkouts({ navigation }) {
     const {theme} = useTheme();
 
     const Item = ({id, title}) => (
-        <TouchableOpacity style={theme.touchableItem} onPress={() => console.log(id)}>
+        <TouchableOpacity style={theme.touchableItem} onPress={() => navigation.navigate('WorkoutsDetails', { screen: 'WorkoutsDetails' })}>
             <Text style={theme.touchableItemText}>{title}</Text>
         </TouchableOpacity>
       );
