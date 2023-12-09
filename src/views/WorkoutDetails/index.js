@@ -56,7 +56,7 @@ export function WorkoutDetails({route, navigation }) {
     const selectedWorkout = DATA.find(workout => workout.id === workoutID);
 
     const renderExerciseItem = ({item}) => (
-        <TouchableOpacity style={theme.touchableItem} onPress={() => {}}>
+        <TouchableOpacity style={theme.touchableItem} onPress={()=> navigation.navigate('ExerciseDetails', { exerciseID: item.id})}>
             <Text style={theme.touchableItemText}>{item.name}</Text>
         </TouchableOpacity>
     );
@@ -64,7 +64,7 @@ export function WorkoutDetails({route, navigation }) {
     return (
         <View style={theme.background}>
             <View style={theme.container}>
-                <Text style={styles.title}>Workouts Details</Text>
+                <Text style={styles.title}>Select Exercise</Text>
                 <FlatList 
                     data={selectedWorkout?.exercises}
                     renderItem={renderExerciseItem}
