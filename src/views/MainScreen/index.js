@@ -5,6 +5,7 @@ import { Accelerometer, Magnetometer } from 'expo-sensors';
 import haversine from 'haversine';
 import * as Location from 'expo-location';
 import { useTheme } from '../../context/ThemeContext';
+import RNPickerSelect from 'react-native-picker-select';
 
 export function MainScreen({ navigation }) {
   const {theme} = useTheme();
@@ -14,6 +15,14 @@ export function MainScreen({ navigation }) {
   const [duration, setDuration] = useState(0.0);
   const [pace, setPace] = useState(0.0);
   const [calories, setCalories] = useState(0.0);
+
+  const [selectedTraining, setSelectedTraining] = useState('running');
+
+  const trainingOptions = [
+    { label: 'Running', value: 'running' },
+    { label: 'Cycling', value: 'cycling' },
+    { label: 'Swimming', value: 'swimming' },
+  ];
 
   const [region, setRegion] = useState({
     latitude: 0,
@@ -189,6 +198,16 @@ export function MainScreen({ navigation }) {
       </MapView>
 
       <View style={[theme.container, {flex:0.5, borderTopLeftRadius: 0,borderTopRightRadius: 0, padding: 0}]}>
+        { (!isTrainingStarted) && (
+            <RNPickerSelect
+              onValueChange={(value) => setSelectedTraining(value)}
+              items={trainingOptions}
+              placeholder={{ label: 'Select an option', value: selectedTraining }}
+              value={selectedTraining}
+            />
+          )
+        }
+
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
           <Text style={theme.text}> Distance: {totalDistance.toFixed(2)} km </Text>
           <Text style={theme.text}> Duration: {duration.toFixed(2)} s </Text>
