@@ -29,7 +29,7 @@ export function PocketWorkouts({ navigation }) {
     const {theme} = useTheme();
 
     const Item = ({id, title}) => (
-        <TouchableOpacity style={theme.touchableItem} onPress={() => navigation.navigate('WorkoutsDetails', { screen: 'WorkoutsDetails' })}>
+        <TouchableOpacity style={theme.touchableItem} onPress={() => navigation.navigate('WorkoutDetails', { workoutID: id })}>
             <Text style={theme.touchableItemText}>{title}</Text>
         </TouchableOpacity>
       );

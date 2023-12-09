@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { WorkoutsDetails } from "../views/WorkoutsDetails";
+import { WorkoutDetails } from "../views/WorkoutDetails";
 import { PocketWorkouts } from "../views";
 import { useTheme } from "../context/ThemeContext";
 
@@ -25,9 +25,9 @@ export default function PocketWorkoutsNavigator() {
                 component={PocketWorkouts}
                 options={{title: 'PocketWorkouts', headerShown: false}} />
             <Stack.Screen 
-                name="WorkoutsDetails"
-                component={WorkoutsDetails}
-                options={{title: 'WorkoutsDetails'}} />
+                name="WorkoutDetails"
+                component={WorkoutDetails}
+                options={{title: 'WorkoutDetails'}} />
         </Stack.Navigator>
     );
 }
