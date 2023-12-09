@@ -7,13 +7,14 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
         color: '#1F1F1F',
-        marginTop: 15,
+        marginTop: 5,
+        textAlign: 'right',
     },
     detailTitle: {
         fontSize: 17,
         fontWeight: '600',
         color: '#4D4C59',
-        marginTop: 15,
+        marginTop: 5,
     },
     logout: {
         backgroundColor:'#7C2828', 
@@ -24,6 +25,6 @@ export const styles = StyleSheet.create({
     logoutText: {
         color: '#fff',
         fontSize: 24,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     }
 })

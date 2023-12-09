@@ -40,5 +40,20 @@ export const lightTheme = {
         trackTrueColor: '#B9A6FF',
         thumbFalseColor: '#FFFFFF',
         thumbTrueColor: '#7F7AFF', 
+    }, 
+    touchableItemText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000',
+    }, 
+    touchableItem: {
+        backgroundColor: '#70dbba',
+        padding: 15, 
+        paddingHorizontal: 80,
+        textAlign: 'center',
+        alignContent: 'center',
+        borderRadius: 50,
+        marginTop: 10,
     },
 };

@@ -40,5 +40,20 @@ export const darkTheme = {
         trackTrueColor: '#252526',
         thumbFalseColor: '#fff',
         thumbTrueColor: '#0afafa',
+    }, 
+    touchableItemText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#fff',
+    }, 
+    touchableItem: {
+        backgroundColor: '#059669',
+        padding: 15, 
+        paddingHorizontal: 80,
+        textAlign: 'center',
+        alignContent: 'center',
+        borderRadius: 50,
+        marginTop: 10,
     },
   };
