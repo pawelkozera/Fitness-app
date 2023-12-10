@@ -11,6 +11,8 @@ export function MainScreen({ navigation }) {
   const {theme} = useTheme();
   const [isTrainingStarted, setIsTrainingStarted] = useState(false);
   const [firstRun, setFirstRun] = useState(true);
+  const [trainingSaved, setTrainingSaved] = useState(false);
+  const [routeSaved, setRouteSaved] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0.0);
   const [duration, setDuration] = useState(0.0);
   const [pace, setPace] = useState(0.0);
@@ -59,6 +61,9 @@ export function MainScreen({ navigation }) {
     setIsTrainingStarted(false);
     clearInterval(intervalId);
     clearInterval(intervalIdGetLocation);
+
+    setTrainingSaved(false);
+    setRouteSaved(false);
   };
 
   const updateTraining = () => {
@@ -188,11 +193,12 @@ export function MainScreen({ navigation }) {
   
       if (response.ok) {
         console.log('Route saved');
+        setRouteSaved(true);
       } else {
         console.error('Route save error', response.statusText);
       }
     } catch (error) {
-      console.error('Error POST', error);
+      console.error('Error route POST', error);
     }
   };  
 
@@ -215,12 +221,13 @@ export function MainScreen({ navigation }) {
       });
 
       if (response.ok) {
-        console.log('Trening został zapisany pomyślnie!');
+        console.log('Training saved');
+        setTrainingSaved(true);
       } else {
-        console.error('Błąd podczas zapisywania treningu:', response.statusText);
+        console.error('Error training save', response.statusText);
       }
     } catch (error) {
-      console.error('Błąd podczas wysyłania żądania POST:', error);
+      console.error('Error training POST', error);
     }
   };
   
@@ -248,20 +255,20 @@ export function MainScreen({ navigation }) {
       <View style={[theme.container, {flex:0.5, borderTopLeftRadius: 0,borderTopRightRadius: 0, padding: 0}]}>
         { (!isTrainingStarted) && (
             <SelectList
-            //requireds
             data={trainingOptions}
-            whatWithSelected={value => setSelectedTraining(value)}
+            whatWithSelected={(value) => {
+                setSelectedTraining(value);
+            }}
             maxHeightList={150}
             placeholder={selectedTraining}
             notFoundText="Date not found"
-            valueToBeSaved="key"
-            //optionals
+            valueToBeSaved="value"
             afterSelecting={() => console.log('return function')}
             containerStyle={{ width: 200, borderColor: 'black' }}
             containerDataStyle={{ width: 200, borderColor: 'gray' }}
             infoFontStyle={{ fontSize: 18, fontWeight: 'bold' }}
             containerFontsStyle={{ fontSize: 18, fontWeight: 'normal' }}
-          />
+            />
           )
         }
 
@@ -279,19 +286,23 @@ export function MainScreen({ navigation }) {
         </TouchableOpacity>
         {(duration != 0 && !isTrainingStarted) && (  
           <View>
-            <TouchableOpacity
-              style={theme.touchableItem}
-              onPress={saveRoute}
-            >
-              <Text style={theme.touchableItemText}>Save route</Text>
-            </TouchableOpacity>
+            {!routeSaved && (
+              <TouchableOpacity
+                style={theme.touchableItem}
+                onPress={saveRoute}
+              >
+                <Text style={theme.touchableItemText}>Save route</Text>
+              </TouchableOpacity>
+            )}
 
-            <TouchableOpacity
-              style={theme.touchableItem}
-              onPress={saveTraining}
-            >
-              <Text style={theme.touchableItemText}>Save training</Text>
-            </TouchableOpacity>
+            {!trainingSaved && (
+              <TouchableOpacity
+                style={theme.touchableItem}
+                onPress={saveTraining}
+              >
+                <Text style={theme.touchableItemText}>Save training</Text>
+              </TouchableOpacity>
+            )}
           </View>
         )}
       </View>
