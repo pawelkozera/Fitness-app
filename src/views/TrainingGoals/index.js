@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
+import { useIsFocused } from '@react-navigation/native';
 
 const CustomCheckbox = ({ checked, onChange }) => {
   const handlePress = () => {
@@ -54,19 +55,43 @@ const TrainingGoalsView = ({ name, category, onRemove }) => {
 export function TrainingGoals({ navigation }) {
   const { theme } = useTheme();
   const [visibleGoals, setVisibleGoals] = useState([]);
+  const isFocused = useIsFocused();
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://192.168.1.4:3004/trainingGoals');
+      if (response.ok) {
+        const data = await response.json();
+        setVisibleGoals(data || []);
+      } else {
+        console.error('Error fetching data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   useEffect(() => {
-    fetch('http://192.168.1.4:3004/trainingGoals')
-      .then((response) => response.json())
-      .then((data) => {
-        setVisibleGoals(data || []);
-      })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
-  
-  const handleRemoveGoal = (goalId) => {
-    const updatedGoals = visibleGoals.filter((goal) => goal.id !== goalId);
-    setVisibleGoals(updatedGoals);
+    if (isFocused) {
+      fetchData();
+    }
+  }, [isFocused]);
+
+  const handleRemoveGoal = async (goalId) => {
+    try {
+      const response = await fetch(`http://192.168.1.4:3004/trainingGoals/${goalId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        const updatedGoals = visibleGoals.filter((goal) => goal.id !== goalId);
+        setVisibleGoals(updatedGoals);
+      } else {
+        console.error('Error deleting goal:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting goal:', error);
+    }
   };
 
   const handleAddGoal = (newGoal) => {
@@ -88,7 +113,7 @@ export function TrainingGoals({ navigation }) {
         <TouchableOpacity
           style={theme.touchableItem}
           onPress={() => {
-            navigation.navigate('AddTrainingGoal', { handleAddGoal });
+            navigation.navigate('AddTrainingGoal');
           }}
         >
           <Text style={theme.touchableItemText}>Add goal</Text>

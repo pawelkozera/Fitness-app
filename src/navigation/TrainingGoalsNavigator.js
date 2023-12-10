@@ -27,7 +27,7 @@ export default function TrainingGoalsNavigator() {
                 <Stack.Screen 
                     name="AddTrainingGoal"
                     component={AddTrainingGoal}
-                    options={{title: 'AddTrainingGoal'}} 
+                    options={{title: 'Add Training Goal'}} 
                 />
         </Stack.Navigator>
     );

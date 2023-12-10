@@ -16,7 +16,7 @@ export function MainScreen({ navigation }) {
   const [pace, setPace] = useState(0.0);
   const [calories, setCalories] = useState(0.0);
 
-  const [selectedTraining, setSelectedTraining] = useState('running');
+  const [selectedTraining, setSelectedTraining] = useState('Running');
 
   const trainingOptions = [
     { label: 'Running', value: 'Running' },
