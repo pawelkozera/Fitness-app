@@ -5,7 +5,7 @@ import { Accelerometer, Magnetometer } from 'expo-sensors';
 import haversine from 'haversine';
 import * as Location from 'expo-location';
 import { useTheme } from '../../context/ThemeContext';
-import RNPickerSelect from 'react-native-picker-select';
+import { SelectList } from 'react_native_simple_dropdown_select_list';
 
 export function MainScreen({ navigation }) {
   const {theme} = useTheme();
@@ -199,12 +199,21 @@ export function MainScreen({ navigation }) {
 
       <View style={[theme.container, {flex:0.5, borderTopLeftRadius: 0,borderTopRightRadius: 0, padding: 0}]}>
         { (!isTrainingStarted) && (
-            <RNPickerSelect
-              onValueChange={(value) => setSelectedTraining(value)}
-              items={trainingOptions}
-              placeholder={{ label: 'Select an option', value: selectedTraining }}
-              value={selectedTraining}
-            />
+            <SelectList
+            //requireds
+            data={trainingOptions}
+            whatWithSelected={value => setSelectedTraining(value)}
+            maxHeightList={150}
+            placeholder={selectedTraining}
+            notFoundText="Date not found"
+            valueToBeSaved="key"
+            //optionals
+            afterSelecting={() => console.log('return function')}
+            containerStyle={{ width: 200, borderColor: 'black' }}
+            containerDataStyle={{ width: 200, borderColor: 'gray' }}
+            infoFontStyle={{ fontSize: 18, fontWeight: 'bold' }}
+            containerFontsStyle={{ fontSize: 18, fontWeight: 'normal' }}
+          />
           )
         }
 
