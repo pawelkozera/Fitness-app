@@ -1,0 +1,19 @@
+{
+  "trainingGoals": [
+    {
+      "id": 1,
+      "name": "Goal 1",
+      "category": "Running"
+    },
+    {
+      "id": 2,
+      "name": "Goal 2",
+      "category": "Running"
+    },
+    {
+      "id": 3,
+      "name": "Goal 3",
+      "category": "Cycling"
+    }
+  ]
+}

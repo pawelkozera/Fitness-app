@@ -233,7 +233,7 @@ export function MainScreen({ navigation }) {
             <TouchableOpacity
               style={theme.touchableItem}
               onPress={() => {
-                // Obsługa zdarzenia dla przycisku "Save route"
+                
               }}
             >
               <Text style={theme.touchableItemText}>Save route</Text>
@@ -242,7 +242,7 @@ export function MainScreen({ navigation }) {
             <TouchableOpacity
               style={theme.touchableItem}
               onPress={() => {
-                // Obsługa zdarzenia dla przycisku "Save training"
+                
               }}
             >
               <Text style={theme.touchableItemText}>Save training</Text>

@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { WeeklyAchievements, MainScreen, TrainingGoals } from '../views';
 import { BottomTabIcon } from '../components/BottomTabIcon';
 import { useTheme } from '../context/ThemeContext';
+import TrainingGoalsNavigator from './TrainingGoalsNavigator';
 
 const optionScreen = {
   headerShown: false,
@@ -35,7 +36,7 @@ export default function BottomTabNav() {
         component={MainScreen}
         options={optionScreen}
       />
-      <Tab.Screen name="TrainingGoals" component={TrainingGoals} options={optionScreen} />
+      <Tab.Screen name="TrainingGoals" component={TrainingGoalsNavigator} options={optionScreen} />
     </Tab.Navigator>
   );
 }
