@@ -1,6 +1,6 @@
 import MapView, { Polyline } from 'react-native-maps';
 import React, { useEffect, useState, useRef } from 'react';
-import { Dimensions, Text, Button, View } from 'react-native';
+import { Dimensions, Text, Button, View, TouchableOpacity } from 'react-native';
 import { Accelerometer, Magnetometer } from 'expo-sensors';
 import haversine from 'haversine';
 import * as Location from 'expo-location';
@@ -19,9 +19,8 @@ export function MainScreen({ navigation }) {
   const [selectedTraining, setSelectedTraining] = useState('running');
 
   const trainingOptions = [
-    { label: 'Running', value: 'running' },
-    { label: 'Cycling', value: 'cycling' },
-    { label: 'Swimming', value: 'swimming' },
+    { label: 'Running', value: 'Running' },
+    { label: 'Cycling', value: 'Cycling' },
   ];
 
   const [region, setRegion] = useState({
@@ -223,14 +222,31 @@ export function MainScreen({ navigation }) {
           <Text style={theme.text}> Pace: {pace.toFixed(2)} km/h </Text>
           <Text style={theme.text}> Calories: {calories.toFixed(2)} kcal </Text>
         </View>
-        <Button
-          title={isTrainingStarted ? 'Stop Training' : 'Start Training'}
+        <TouchableOpacity
+          style={theme.touchableItem}
           onPress={trainingButton}
-        />
+        >
+          <Text style={theme.touchableItemText}>{isTrainingStarted ? 'Stop Training' : 'Start Training'}</Text>
+        </TouchableOpacity>
         {(duration != 0 && !isTrainingStarted) && (  
           <View>
-            <Button title={"Save route"} />
-            <Button title={"Save training"} />
+            <TouchableOpacity
+              style={theme.touchableItem}
+              onPress={() => {
+                // Obsługa zdarzenia dla przycisku "Save route"
+              }}
+            >
+              <Text style={theme.touchableItemText}>Save route</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={theme.touchableItem}
+              onPress={() => {
+                // Obsługa zdarzenia dla przycisku "Save training"
+              }}
+            >
+              <Text style={theme.touchableItemText}>Save training</Text>
+            </TouchableOpacity>
           </View>
         )}
       </View>
