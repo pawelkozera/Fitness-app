@@ -94,10 +94,6 @@ export function TrainingGoals({ navigation }) {
     }
   };
 
-  const handleAddGoal = (newGoal) => {
-    setVisibleGoals([...visibleGoals, newGoal]);
-  };
-
   return (
     <View style={theme.background}>
       <View style={theme.container}>

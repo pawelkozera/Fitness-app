@@ -176,6 +176,55 @@ export function MainScreen({ navigation }) {
     }
   };
 
+  const saveRoute = async () => {
+    try {
+      const response = await fetch('http://192.168.1.4:3004/routes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ coordinates }),
+      });
+  
+      if (response.ok) {
+        console.log('Route saved');
+      } else {
+        console.error('Route save error', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error POST', error);
+    }
+  };  
+
+  
+  const saveTraining = async () => {
+    try {
+      const response = await fetch('http://192.168.1.4:3004/trainings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          trainingType: selectedTraining,
+          distance: totalDistance,
+          duration,
+          pace,
+          calories,
+          routeId: 1,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Trening został zapisany pomyślnie!');
+      } else {
+        console.error('Błąd podczas zapisywania treningu:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Błąd podczas wysyłania żądania POST:', error);
+    }
+  };
+  
+
   return (
     <View style={theme.background}>
       <MapView
@@ -232,18 +281,14 @@ export function MainScreen({ navigation }) {
           <View>
             <TouchableOpacity
               style={theme.touchableItem}
-              onPress={() => {
-                
-              }}
+              onPress={saveRoute}
             >
               <Text style={theme.touchableItemText}>Save route</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={theme.touchableItem}
-              onPress={() => {
-                
-              }}
+              onPress={saveTraining}
             >
               <Text style={theme.touchableItemText}>Save training</Text>
             </TouchableOpacity>

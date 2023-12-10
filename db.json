@@ -10,5 +10,31 @@
       "name": "Goal 2",
       "category": "Running"
     }
+  ],
+  "routes": [
+    {
+      "id": 1,
+      "coordinates": [
+        {
+          "latitude": 51.1870445,
+          "longitude": 21.2623101
+        },
+        {
+          "latitude": 51.1870494,
+          "longitude": 21.2623461
+        }
+      ]
+    }
+  ],
+  "trainings": [
+    {
+      "trainingType": "Running",
+      "distance": 0,
+      "duration": 0.529,
+      "pace": 0,
+      "calories": 0,
+      "routeId": 1,
+      "id": 1
+    }
   ]
 }
