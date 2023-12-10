@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import { SelectList } from 'react_native_simple_dropdown_select_list';
+import { serverConfig } from '../../config/config';
 
 export function AddTrainingGoal({ navigation }) {
   const { theme } = useTheme();
@@ -20,7 +21,7 @@ export function AddTrainingGoal({ navigation }) {
     };
 
     try {
-      const response = await fetch('http://192.168.1.4:3004/trainingGoals', {
+      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainingGoals`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

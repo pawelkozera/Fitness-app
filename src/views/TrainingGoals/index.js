@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import { useIsFocused } from '@react-navigation/native';
+import { serverConfig } from '../../config/config';
 
 const CustomCheckbox = ({ checked, onChange }) => {
   const handlePress = () => {
@@ -59,7 +60,7 @@ export function TrainingGoals({ navigation }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.1.4:3004/trainingGoals');
+      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainingGoals`);
       if (response.ok) {
         const data = await response.json();
         setVisibleGoals(data || []);
@@ -79,7 +80,7 @@ export function TrainingGoals({ navigation }) {
 
   const handleRemoveGoal = async (goalId) => {
     try {
-      const response = await fetch(`http://192.168.1.4:3004/trainingGoals/${goalId}`, {
+      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainingGoals/${goalId}`, {
         method: 'DELETE',
       });
 

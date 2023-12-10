@@ -6,6 +6,7 @@ import haversine from 'haversine';
 import * as Location from 'expo-location';
 import { useTheme } from '../../context/ThemeContext';
 import { SelectList } from 'react_native_simple_dropdown_select_list';
+import { serverConfig } from '../../config/config';
 
 export function MainScreen({ navigation }) {
   const {theme} = useTheme();
@@ -183,7 +184,7 @@ export function MainScreen({ navigation }) {
 
   const saveRoute = async () => {
     try {
-      const response = await fetch('http://192.168.1.4:3004/routes', {
+      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/routes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -205,7 +206,7 @@ export function MainScreen({ navigation }) {
   
   const saveTraining = async () => {
     try {
-      const response = await fetch('http://192.168.1.4:3004/trainings', {
+      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
