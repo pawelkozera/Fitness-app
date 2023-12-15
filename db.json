@@ -36,5 +36,93 @@
       "routeId": 1,
       "id": 1
     }
+  ],
+  "pocketWorkouts" : [
+    {
+      "trainingGoals": [
+        {
+          "id": 1,
+          "name": "Goal 1",
+          "category": "Running"
+        },
+        {
+          "id": 2,
+          "name": "Goal 2",
+          "category": "Running"
+        }
+      ],
+      "routes": [
+        {
+          "id": 1,
+          "coordinates": [
+            {
+              "latitude": 51.1870445,
+              "longitude": 21.2623101
+            },
+            {
+              "latitude": 51.1870494,
+              "longitude": 21.2623461
+            }
+          ]
+        }
+      ],
+      "trainings": [
+        {
+          "trainingType": "Running",
+          "distance": 0,
+          "duration": 0.529,
+          "pace": 0,
+          "calories": 0,
+          "routeId": 1,
+          "id": 1
+        }
+      ],
+      "pocketWorkouts": [
+        {
+          "id": "1",
+          "title": "Cardio",
+          "exercises": [
+            { "id": "1", "name": "Airborne Workout" },
+            { "id": "2", "name": "Running" },
+            { "id": "3", "name": "Cycling" },
+            { "id": "4", "name": "Jump Rope" },
+            { "id": "5", "name": "HIIT" }
+          ]
+        },
+        {
+          "id": "2",
+          "title": "Strength",
+          "exercises": [
+            { "id": "1", "name": "Push-Ups" },
+            { "id": "2", "name": "Pull-Ups" },
+            { "id": "3", "name": "Squats" },
+            { "id": "4", "name": "Deadlifts" },
+            { "id": "5", "name": "Bench Press" }
+          ]
+        },
+        {
+          "id": "3",
+          "title": "ABS",
+          "exercises": [
+            { "id": "1", "name": "Crunches" },
+            { "id": "2", "name": "Plank" },
+            { "id": "3", "name": "Russian Twists" },
+            { "id": "4", "name": "Bicycle Kicks" },
+            { "id": "5", "name": "Leg Raises" }
+          ]
+        },
+        {
+          "id": "4",
+          "title": "Stretching",
+          "exercises": [
+            { "id": "1", "name": "Hamstring Stretch" },
+            { "id": "2", "name": "Calf Stretch" },
+            { "id": "3", "name": "Shoulder Stretch" },
+            { "id": "4", "name": "Quadriceps Stretch" },
+            { "id": "5", "name": "Triceps Stretch" }
+          ]
+        }
+      ]
+    }    
   ]
 }

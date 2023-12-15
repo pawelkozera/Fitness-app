@@ -1,62 +1,34 @@
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
 import { styles } from "./style";
 import { FlatList } from "react-native-gesture-handler";
+import { serverConfig } from '../../config/config';
 
-const DATA = [
-    {
-        id: '1', 
-        title: 'Cardio',
-        exercises: [
-            { id: '1', name: 'Airborne Workout' },
-            { id: '2', name: 'Running' },
-            { id: '3', name: 'Cycling' },
-            { id: '4', name: 'Jump Rope' },
-            { id: '5', name: 'HIIT' }
-        ]
-    },
-    {
-        id: '2', 
-        title: 'Strength',
-        exercises: [
-            { id: '1', name: 'Push-Ups' },
-            { id: '2', name: 'Pull-Ups' },
-            { id: '3', name: 'Squats' },
-            { id: '4', name: 'Deadlifts' },
-            { id: '5', name: 'Bench Press' }
-        ]
-    },
-    {
-        id: '3', 
-        title: 'ABS',
-        exercises: [
-            { id: '1', name: 'Crunches' },
-            { id: '2', name: 'Plank' },
-            { id: '3', name: 'Russian Twists' },
-            { id: '4', name: 'Bicycle Kicks' },
-            { id: '5', name: 'Leg Raises' }
-        ]
-    },
-    {
-        id: '4', 
-        title: 'Stretching',
-        exercises: [
-            { id: '1', name: 'Hamstring Stretch' },
-            { id: '2', name: 'Calf Stretch' },
-            { id: '3', name: 'Shoulder Stretch' },
-            { id: '4', name: 'Quadriceps Stretch' },
-            { id: '5', name: 'Triceps Stretch' }
-        ]
-    },
-];
+export function WorkoutDetails({ route, navigation }) {
+    const [workouts, setWorkouts] = useState([]);
+    const { theme } = useTheme();
+    const { workoutID } = route.params;
 
-export function WorkoutDetails({route, navigation }) {
-    const {theme} = useTheme();
-    const {workoutID} = route.params;
-    const selectedWorkout = DATA.find(workout => workout.id === workoutID);
+    useEffect(() => {
+        const url = `${serverConfig.apiUrl}:${serverConfig.port}/pocketWorkouts`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0 && data[0].pocketWorkouts) {
+                    setWorkouts(data[0].pocketWorkouts);
+                }
+            })
+            .catch(error => console.error(error));
+    }, []);
 
-    const renderExerciseItem = ({item}) => (
-        <TouchableOpacity style={theme.touchableItem} onPress={()=> navigation.navigate('ExerciseDetails', { exerciseID: item.id})}>
+    const selectedWorkout = workouts.find(workout => workout.id === workoutID);
+
+    const renderExerciseItem = ({ item }) => (
+        <TouchableOpacity 
+            style={theme.touchableItem} 
+            onPress={() => navigation.navigate('ExerciseDetails', { exerciseID: item.id })}
+        >
             <Text style={theme.touchableItemText}>{item.name}</Text>
         </TouchableOpacity>
     );
