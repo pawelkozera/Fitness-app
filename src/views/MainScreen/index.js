@@ -12,8 +12,6 @@ export function MainScreen({ navigation }) {
   const {theme} = useTheme();
   const [isTrainingStarted, setIsTrainingStarted] = useState(false);
   const [firstRun, setFirstRun] = useState(true);
-  const [trainingSaved, setTrainingSaved] = useState(false);
-  const [routeSaved, setRouteSaved] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0.0);
   const [duration, setDuration] = useState(0.0);
   const [pace, setPace] = useState(0.0);
@@ -62,9 +60,6 @@ export function MainScreen({ navigation }) {
     setIsTrainingStarted(false);
     clearInterval(intervalId);
     clearInterval(intervalIdGetLocation);
-
-    setTrainingSaved(false);
-    setRouteSaved(false);
   };
 
   const updateTraining = () => {
@@ -177,61 +172,23 @@ export function MainScreen({ navigation }) {
   const trainingButton = () => {
     if (isTrainingStarted) {
       stopTraining();
+
+      const trainingData = {
+        selectedTraining,
+        totalDistance,
+        duration,
+        pace,
+        calories,
+        coordinates,
+        region,
+        heading
+      };
+
+      navigation.navigate('MainScreenSaveTraining', { trainingData });
     } else {
       startTraining();
     }
   };
-
-  const saveRoute = async () => {
-    try {
-      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/routes`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ coordinates }),
-      });
-  
-      if (response.ok) {
-        console.log('Route saved');
-        setRouteSaved(true);
-      } else {
-        console.error('Route save error', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error route POST', error);
-    }
-  };  
-
-  
-  const saveTraining = async () => {
-    try {
-      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          trainingType: selectedTraining,
-          distance: totalDistance,
-          duration,
-          pace,
-          calories,
-          routeId: 1,
-        }),
-      });
-
-      if (response.ok) {
-        console.log('Training saved');
-        setTrainingSaved(true);
-      } else {
-        console.error('Error training save', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error training POST', error);
-    }
-  };
-  
 
   return (
     <View style={theme.background}>
@@ -279,33 +236,13 @@ export function MainScreen({ navigation }) {
           <Text style={theme.text}> Pace: {pace.toFixed(2)} km/h </Text>
           <Text style={theme.text}> Calories: {calories.toFixed(2)} kcal </Text>
         </View>
+
         <TouchableOpacity
           style={theme.touchableItem}
           onPress={trainingButton}
         >
           <Text style={theme.touchableItemText}>{isTrainingStarted ? 'Stop Training' : 'Start Training'}</Text>
         </TouchableOpacity>
-        {(duration != 0 && !isTrainingStarted) && (  
-          <View>
-            {!routeSaved && (
-              <TouchableOpacity
-                style={theme.touchableItem}
-                onPress={saveRoute}
-              >
-                <Text style={theme.touchableItemText}>Save route</Text>
-              </TouchableOpacity>
-            )}
-
-            {!trainingSaved && (
-              <TouchableOpacity
-                style={theme.touchableItem}
-                onPress={saveTraining}
-              >
-                <Text style={theme.touchableItemText}>Save training</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        )}
       </View>
     </View>
   );

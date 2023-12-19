@@ -29,7 +29,7 @@ export default function DrawerNav() {
       drawerActiveTintColor: theme.navigation.text, 
       drawerInactiveTintColor: theme.navigation.inactiveText,
   }}>
-        <Drawer.Screen name="Main" component={BottomTabNav} />
+        <Drawer.Screen name="Home" component={BottomTabNav} />
         <Drawer.Screen name="Training History" component={TrainingHistory} />
         <Drawer.Screen name="Pocket Workouts" component={PocketWorkoutsNavigator}/>
         <Drawer.Screen name="Routes" component={Routes} />

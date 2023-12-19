@@ -6,6 +6,7 @@ import {TrainingHistory} from './TrainingHistory';
 import {Routes} from './Routes';
 import {TrainingGoals} from './TrainingGoals';
 import {AddTrainingGoal} from './TrainingGoals/addGoal';
+import { SaveTraining } from "./MainScreen/saveTraining";
 
 
-export { WeeklyAchievements, MainScreen, Settings, PocketWorkouts, TrainingHistory, Routes, TrainingGoals, AddTrainingGoal}
+export { WeeklyAchievements, MainScreen, Settings, PocketWorkouts, TrainingHistory, Routes, TrainingGoals, AddTrainingGoal, SaveTraining}
