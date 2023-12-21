@@ -9,33 +9,78 @@
       "id": 2,
       "name": "Goal 2",
       "category": "Running"
+    },
+    {
+      "name": "Goal 3",
+      "category": "Cycling",
+      "id": 3
     }
   ],
   "routes": [
     {
-      "id": 1,
       "coordinates": [
         {
-          "latitude": 51.1870445,
-          "longitude": 21.2623101
+          "latitude": 50.8782487,
+          "longitude": 20.643585
         },
         {
-          "latitude": 51.1870494,
-          "longitude": 21.2623461
+          "latitude": 50.8782497,
+          "longitude": 20.6435863
+        },
+        {
+          "latitude": 50.8782493,
+          "longitude": 20.6436132
         }
-      ]
+      ],
+      "region": {
+        "latitude": 50.8782493,
+        "longitude": 20.6436132,
+        "latitudeDelta": 0.001,
+        "longitudeDelta": 0.0005060918462980319
+      },
+      "id": 1
+    },
+    {
+      "coordinates": [],
+      "region": {
+        "latitude": 50.8783564,
+        "longitude": 20.643827,
+        "latitudeDelta": 0.001,
+        "longitudeDelta": 0.0005060918462980319
+      },
+      "id": 2
+    },
+    {
+      "coordinates": [],
+      "region": {
+        "latitude": 50.8783564,
+        "longitude": 20.643827,
+        "latitudeDelta": 0.001,
+        "longitudeDelta": 0.0005060918462980319
+      },
+      "id": 3
+    },
+    {
+      "coordinates": [],
+      "region": {
+        "latitude": 50.8783564,
+        "longitude": 20.643827,
+        "latitudeDelta": 0.001,
+        "longitudeDelta": 0.0005060918462980319
+      },
+      "id": 4
     }
   ],
   "trainings": [
     {
       "trainingType": "Running",
       "distance": 0,
-      "duration": 0.539,
+      "duration": 1.542,
       "pace": 0,
       "calories": 0,
-      "date": "2023-12-19T12:11:18",
+      "date": "2023-12-21T10:03:36",
       "routeId": 1,
-      "id": 1
+      "id": 2
     }
   ],
   "pocketWorkouts": [

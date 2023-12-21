@@ -21,7 +21,10 @@ export function SaveTraining({ route  }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ coordinates }),
+        body: JSON.stringify({ 
+          coordinates,
+          region: region,
+         }),
       });
   
       if (response.ok) {
@@ -63,6 +66,10 @@ export function SaveTraining({ route  }) {
       }
     } catch (error) {
       console.error('Error training POST', error);
+    }
+
+    if (!routeSaved) {
+      saveRoute();
     }
   };
 

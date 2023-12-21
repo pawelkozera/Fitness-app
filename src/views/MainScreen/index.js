@@ -181,7 +181,7 @@ export function MainScreen({ navigation }) {
         calories,
         coordinates,
         region,
-        heading
+        heading,
       };
 
       navigation.navigate('MainScreenSaveTraining', { trainingData });

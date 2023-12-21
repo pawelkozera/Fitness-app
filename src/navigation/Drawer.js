@@ -3,6 +3,7 @@ import BottomTabNav from './BottomTab';
 import { Settings, PocketWorkouts, TrainingHistory, Routes } from '../views';
 import { useTheme } from '../context/ThemeContext';
 import PocketWorkoutsNavigator from './PocketWorkoutsNavigator';
+import TrainingHistoryNavigator from './TrainingHistoryNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,7 +31,7 @@ export default function DrawerNav() {
       drawerInactiveTintColor: theme.navigation.inactiveText,
   }}>
         <Drawer.Screen name="Home" component={BottomTabNav} />
-        <Drawer.Screen name="Training History" component={TrainingHistory} />
+        <Drawer.Screen name="Training History" component={TrainingHistoryNavigator} />
         <Drawer.Screen name="Pocket Workouts" component={PocketWorkoutsNavigator}/>
         <Drawer.Screen name="Routes" component={Routes} />
         <Drawer.Screen name="Settings" component={Settings} />
