@@ -19,7 +19,6 @@ export function TrainingHistoryDetails({ route, navigation }) {
     const [routeDetails, setRouteDetails] = useState([]);
 
     const { selectedTraining } = route.params;
-    console.log(selectedTraining);
 
     useEffect(() => {
         fetchRouteDetails(selectedTraining.routeId);
@@ -43,7 +42,6 @@ export function TrainingHistoryDetails({ route, navigation }) {
     };
 
     useEffect(() => {
-        console.log(routeDetails.coordinates);
         setRegion(routeDetails.region);
     }, [routeDetails]);
 

@@ -41,34 +41,27 @@
       "id": 1
     },
     {
-      "coordinates": [],
+      "coordinates": [
+        {
+          "latitude": 50.8782487,
+          "longitude": 20.643585
+        },
+        {
+          "latitude": 50.8782497,
+          "longitude": 20.6435863
+        },
+        {
+          "latitude": 50.8782493,
+          "longitude": 20.6436132
+        }
+      ],
       "region": {
-        "latitude": 50.8783564,
-        "longitude": 20.643827,
+        "latitude": 50.8782493,
+        "longitude": 20.6436132,
         "latitudeDelta": 0.001,
         "longitudeDelta": 0.0005060918462980319
       },
       "id": 2
-    },
-    {
-      "coordinates": [],
-      "region": {
-        "latitude": 50.8783564,
-        "longitude": 20.643827,
-        "latitudeDelta": 0.001,
-        "longitudeDelta": 0.0005060918462980319
-      },
-      "id": 3
-    },
-    {
-      "coordinates": [],
-      "region": {
-        "latitude": 50.8783564,
-        "longitude": 20.643827,
-        "latitudeDelta": 0.001,
-        "longitudeDelta": 0.0005060918462980319
-      },
-      "id": 4
     }
   ],
   "trainings": [
@@ -79,6 +72,16 @@
       "pace": 0,
       "calories": 0,
       "date": "2023-12-21T10:03:36",
+      "routeId": 1,
+      "id": 1
+    },
+    {
+      "trainingType": "Running",
+      "distance": 0,
+      "duration": 1.542,
+      "pace": 0,
+      "calories": 0,
+      "date": "2023-12-21T10:06:36",
       "routeId": 1,
       "id": 2
     }
