@@ -81,9 +81,19 @@
       "duration": 1.542,
       "pace": 0,
       "calories": 0,
-      "date": "2023-12-21T10:06:36",
+      "date": "2023-12-21T11:03:36",
       "routeId": 1,
       "id": 2
+    },
+    {
+      "trainingType": "Cycling",
+      "distance": 0.1,
+      "duration": 120,
+      "pace": 3,
+      "calories": 1.5,
+      "date": "2023-12-21T11:03:36.000Z",
+      "routeId": 1,
+      "id": 3
     }
   ],
   "pocketWorkouts": [

@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { TrainingHistory, TrainingHistoryDetails } from "../views";
+import { TrainingHistory, TrainingHistoryDetails, TrainingHistoryEdit } from "../views";
 import { useTheme } from "../context/ThemeContext";
 
 const Stack = createStackNavigator();
@@ -28,6 +28,11 @@ export default function TrainingHistoryNavigator() {
                     name="TrainingHistoryDetails"
                     component={TrainingHistoryDetails}
                     options={{title: 'Training Details'}} 
+                />
+                <Stack.Screen 
+                    name="TrainingHistoryEdit"
+                    component={TrainingHistoryEdit}
+                    options={{title: 'Training Edit'}} 
                 />
         </Stack.Navigator>
     );

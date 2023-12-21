@@ -18,7 +18,7 @@ export function TrainingHistoryDetails({ route, navigation }) {
 
     const [routeDetails, setRouteDetails] = useState([]);
 
-    const { selectedTraining } = route.params;
+    const [selectedTraining, setSelectedTraining] = useState(route.params.selectedTraining);
 
     useEffect(() => {
         fetchRouteDetails(selectedTraining.routeId);
@@ -62,6 +62,31 @@ export function TrainingHistoryDetails({ route, navigation }) {
             }
         } catch (error) {
             console.error('Error deleting training', error);
+        }
+    };
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', async () => {
+            try {
+                const updatedTraining = await fetchTrainingDetails(selectedTraining.id);
+                setSelectedTraining(updatedTraining);
+            } catch (error) {
+                console.error('Error updating training details', error);
+            }
+        });
+    
+        return unsubscribe;
+    }, [navigation]);
+
+      const fetchTrainingDetails = async (trainingId) => {
+        try {
+          const url = `${serverConfig.apiUrl}:${serverConfig.port}/trainings/${trainingId}`;
+          const response = await fetch(url);
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error('Error fetching training details', error);
+          throw error;
         }
     };
 
@@ -109,7 +134,7 @@ export function TrainingHistoryDetails({ route, navigation }) {
 
             <TouchableOpacity
                 style={theme.touchableItem}
-                onPress={console.log("Edit")}
+                onPress={() => navigation.navigate('TrainingHistoryEdit', { selectedTraining })}
                 >
                 <Text style={theme.touchableItemText}>Edit</Text>
             </TouchableOpacity>
