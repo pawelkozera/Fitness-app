@@ -60,12 +60,50 @@ export function SaveTrainingPhoto({ route, navigation }) {
     }
   };
 
-  const saveTraining = async () => {
-    try {
-      if (photo) {
-        await savePhoto();
-      }
+  useEffect(() => {
+    saveTraining();
+  }, [photoId]);
 
+  const saveTraining = async () => {
+    if (photo && photoId === null) {
+        await savePhoto();
+    }
+    
+    if (photoId !== null) {
+        try {
+        const currentDate = new Date().toISOString().slice(0, -5);
+
+        const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            trainingType: selectedTraining,
+            distance: totalDistance,
+            duration,
+            pace,
+            calories,
+            date: currentDate,
+            routeId: 1,
+            photoId: photoId,
+            }),
+        });
+
+        if (response.ok) {
+            console.log('Training saved');
+            navigation.navigate('MainScreenStartTraining');
+        } else {
+            console.error('Error training save', response.statusText);
+        }
+        } catch (error) {
+        console.error('Error training POST', error);
+        }
+    }
+  };
+
+  const saveTrainingWithoutPhoto = async () => {
+    try {
       const currentDate = new Date().toISOString().slice(0, -5);
 
       const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
@@ -94,6 +132,7 @@ export function SaveTrainingPhoto({ route, navigation }) {
       console.error('Error training POST', error);
     }
   };
+
 
   useEffect(() => {
     requestCameraPermission();
@@ -142,7 +181,7 @@ export function SaveTrainingPhoto({ route, navigation }) {
 
       <TouchableOpacity
         style={theme.touchableItem}
-        onPress={saveTraining}
+        onPress={saveTrainingWithoutPhoto}
       >
         <Text style={theme.touchableItemText}>Save without photo</Text>
       </TouchableOpacity>
