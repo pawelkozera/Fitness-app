@@ -7,7 +7,7 @@ import { serverConfig } from '../../config/config';
 
 export function SaveTrainingPhoto({ route, navigation }) {
   const { theme } = useTheme();
-  const { selectedTraining, totalDistance, duration, pace, calories } = route.params.trainingData;
+  const { selectedTraining, totalDistance, duration, pace, calories, coordinates, region, heading, routeId} = route.params.trainingData;
 
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
@@ -71,31 +71,35 @@ export function SaveTrainingPhoto({ route, navigation }) {
     
     if (photoId !== null) {
         try {
-        const currentDate = new Date().toISOString().slice(0, -5);
+            let newRouteId = routeId;
+            if (routeId === null) {
+                newRouteId = await saveRoute();
+            }
+            const currentDate = new Date().toISOString().slice(0, -5);
 
-        const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-            trainingType: selectedTraining,
-            distance: totalDistance,
-            duration,
-            pace,
-            calories,
-            date: currentDate,
-            routeId: 1,
-            photoId: photoId,
-            }),
-        });
+            const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                trainingType: selectedTraining,
+                distance: totalDistance,
+                duration,
+                pace,
+                calories,
+                date: currentDate,
+                routeId: newRouteId,
+                photoId: photoId,
+                }),
+            });
 
-        if (response.ok) {
-            console.log('Training saved');
-            navigation.navigate('MainScreenStartTraining');
-        } else {
-            console.error('Error training save', response.statusText);
-        }
+            if (response.ok) {
+                console.log('Training saved');
+                navigation.navigate('MainScreenStartTraining');
+            } else {
+                console.error('Error training save', response.statusText);
+            }
         } catch (error) {
         console.error('Error training POST', error);
         }
@@ -104,35 +108,67 @@ export function SaveTrainingPhoto({ route, navigation }) {
 
   const saveTrainingWithoutPhoto = async () => {
     try {
-      const currentDate = new Date().toISOString().slice(0, -5);
+        let newRouteId = routeId;
+        if (routeId === null) {
+            newRouteId = await saveRoute();
+        }
 
-      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
+        const currentDate = new Date().toISOString().slice(0, -5);
+
+        const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            trainingType: selectedTraining,
+            distance: totalDistance,
+            duration,
+            pace,
+            calories,
+            date: currentDate,
+            routeId: newRouteId,
+            photoId: photoId,
+        }),
+        });
+
+        if (response.ok) {
+        console.log('Training saved');
+        navigation.navigate('MainScreenStartTraining');
+        } else {
+        console.error('Error training save', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error training POST', error);
+    }
+  };
+
+  const saveRoute = async () => {
+    try {
+      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/routes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          trainingType: selectedTraining,
-          distance: totalDistance,
-          duration,
-          pace,
-          calories,
-          date: currentDate,
-          routeId: 1,
-          photoId: photoId,
-        }),
+        body: JSON.stringify({ 
+          coordinates: coordinates,
+          region: region,
+         }),
       });
-
+  
       if (response.ok) {
-        console.log('Training saved');
+        const responseData = await response.json();
+        console.log('Route saved');
+        return responseData.id;
       } else {
-        console.error('Error training save', response.statusText);
+        console.error('Route save error', response.statusText);
+        return null;
       }
     } catch (error) {
-      console.error('Error training POST', error);
+      console.error('Error route POST', error);
+      return null;
     }
   };
-
 
   useEffect(() => {
     requestCameraPermission();

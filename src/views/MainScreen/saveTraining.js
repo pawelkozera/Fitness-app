@@ -13,6 +13,7 @@ export function SaveTraining({ route, navigation }) {
 
   const [trainingSaved, setTrainingSaved] = useState(false);
   const [routeSaved, setRouteSaved] = useState(false);
+  const [routeId, setRouteId] = useState(null);
 
   const saveRoute = async () => {
     try {
@@ -29,6 +30,8 @@ export function SaveTraining({ route, navigation }) {
   
       if (response.ok) {
         console.log('Route saved');
+        const routeInfo = await response.json();
+        setRouteId(routeInfo.id);
         setRouteSaved(true);
       } else {
         console.error('Route save error', response.statusText);
@@ -39,6 +42,7 @@ export function SaveTraining({ route, navigation }) {
   };  
 
   const saveTrainingPhoto = () => {
+    console.log(routeId);
     const trainingData = {
       selectedTraining,
       totalDistance,
@@ -48,6 +52,7 @@ export function SaveTraining({ route, navigation }) {
       coordinates,
       region,
       heading,
+      routeId
     };
 
     navigation.navigate('MainScreenSaveTrainingPhoto', { trainingData });
