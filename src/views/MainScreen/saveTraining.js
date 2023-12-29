@@ -5,7 +5,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { SelectList } from 'react_native_simple_dropdown_select_list';
 import { serverConfig } from '../../config/config';
 
-export function SaveTraining({ route  }) {
+export function SaveTraining({ route, navigation }) {
   const { theme } = useTheme();
 
   const { trainingData } = route.params;
@@ -73,6 +73,22 @@ export function SaveTraining({ route  }) {
     }
   };
 
+
+  const saveTrainingPhoto = () => {
+    const trainingData = {
+      selectedTraining,
+      totalDistance,
+      duration,
+      pace,
+      calories,
+      coordinates,
+      region,
+      heading,
+    };
+
+    navigation.navigate('MainScreenSaveTrainingPhoto', { trainingData });
+  }
+
   return (
     <View style={theme.background}>
     <MapView
@@ -104,7 +120,7 @@ export function SaveTraining({ route  }) {
         {!trainingSaved && (
             <TouchableOpacity
                 style={theme.touchableItem}
-                onPress={saveTraining}
+                onPress={saveTrainingPhoto}
                 >
                 <Text style={theme.touchableItemText}>Save training</Text>
             </TouchableOpacity>

@@ -10,7 +10,8 @@ import { SaveTraining } from "./MainScreen/saveTraining";
 import { TrainingHistoryDetails } from "./TrainingHistory/TrainingHistoryDetails";
 import { RouteDetails } from "./Routes/RouteDetails";
 import { TrainingHistoryEdit } from "./TrainingHistory/TrainingHistoryEdit";
+import { SaveTrainingPhoto } from "./MainScreen/saveTrainingPhoto";
 
 
 export { WeeklyAchievements, MainScreen, Settings, PocketWorkouts, TrainingHistory, Routes, TrainingGoals, AddTrainingGoal, 
-    SaveTraining, TrainingHistoryDetails, RouteDetails, TrainingHistoryEdit}
+    SaveTraining, TrainingHistoryDetails, RouteDetails, TrainingHistoryEdit, SaveTrainingPhoto}

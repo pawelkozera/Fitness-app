@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { MainScreen, SaveTraining } from "../views";
+import { MainScreen, SaveTraining, SaveTrainingPhoto } from "../views";
 import { useTheme } from "../context/ThemeContext";
 
 const Stack = createStackNavigator();
@@ -27,6 +27,11 @@ export default function MainScreenNavigator() {
                 <Stack.Screen 
                     name="MainScreenSaveTraining"
                     component={SaveTraining}
+                    options={{title: 'Save training details'}} 
+                />
+                <Stack.Screen 
+                    name="MainScreenSaveTrainingPhoto"
+                    component={SaveTrainingPhoto}
                     options={{title: 'Save training details'}} 
                 />
         </Stack.Navigator>
