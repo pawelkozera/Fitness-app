@@ -68,32 +68,23 @@
     {
       "trainingType": "Running",
       "distance": 0,
-      "duration": 1.542,
+      "duration": 0.592,
       "pace": 0,
       "calories": 0,
-      "date": "2023-12-21T10:03:36",
+      "date": "2023-12-29T12:43:39",
       "routeId": 1,
+      "photoId": 1,
+      "id": 1
+    }
+  ],
+  "photos": [
+    {
+      "url": "file:///data/user/0/host.exp.exponent/files/photos/photo_1703854580197.jpg",
       "id": 1
     },
     {
-      "trainingType": "Running",
-      "distance": 0,
-      "duration": 1.542,
-      "pace": 0,
-      "calories": 0,
-      "date": "2023-12-21T11:03:36",
-      "routeId": 1,
+      "url": "file:///data/user/0/host.exp.exponent/files/photos/photo_1703854878634.jpg",
       "id": 2
-    },
-    {
-      "trainingType": "Cycling",
-      "distance": 0.1,
-      "duration": 120,
-      "pace": 3,
-      "calories": 1.5,
-      "date": "2023-12-21T11:03:36.000Z",
-      "routeId": 1,
-      "id": 3
     }
   ],
   "pocketWorkouts": [

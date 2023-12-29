@@ -37,42 +37,6 @@ export function SaveTraining({ route, navigation }) {
       console.error('Error route POST', error);
     }
   };  
-  
-  const saveTraining = async () => {
-    try {
-      const currentDate = new Date().toISOString().slice(0, -5);
-
-      const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/trainings`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          trainingType: selectedTraining,
-          distance: totalDistance,
-          duration,
-          pace,
-          calories,
-          date: currentDate,
-          routeId: 1,
-        }),
-      });
-
-      if (response.ok) {
-        console.log('Training saved');
-        setTrainingSaved(true);
-      } else {
-        console.error('Error training save', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error training POST', error);
-    }
-
-    if (!routeSaved) {
-      saveRoute();
-    }
-  };
-
 
   const saveTrainingPhoto = () => {
     const trainingData = {
