@@ -106,21 +106,21 @@ export function TrainingHistoryDelete({ route, navigation }) {
         fetchData();
     }, [selectedTraining.photoId]);
 
-    const deleteWithRoute = () => {
-        deleteTraining();
+    const deleteWithRoute = async () => {
+        await deleteTraining();
         if (selectedTraining.photoId !== null) {
-            deletePhotos();
-            deletePhotoFromDevice(photoDetails.url);
+            await deletePhotos();
+            await deletePhotoFromDevice(photoDetails.url);
         }
-        deleteRoute();
+        await deleteRoute();
         navigation.navigate('TrainingHistoryList');
     };
 
-    const deleteWithoutRoute = () => {
-        deleteTraining();
+    const deleteWithoutRoute = async () => {
+        await deleteTraining();
         if (selectedTraining.photoId !== null) {
-            deletePhotos();
-            deletePhotoFromDevice(photoDetails.url);
+            await deletePhotos();
+            await deletePhotoFromDevice(photoDetails.url);
         }
         navigation.navigate('TrainingHistoryList');
     };
