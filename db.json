@@ -89,11 +89,11 @@
     {
       "trainingType": "Running",
       "distance": 0,
-      "duration": 2.023,
+      "duration": 2,
       "pace": 0,
       "calories": 0,
-      "date": "2023-12-29T14:43:25",
-      "routeId": 3,
+      "date": "2023-12-29T13:43:25.000Z",
+      "routeId": 1,
       "photoId": 2,
       "id": 2
     }

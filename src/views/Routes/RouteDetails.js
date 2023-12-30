@@ -9,7 +9,7 @@ import { styles } from "./style";
 export function RouteDetails({ route, navigation }) {
     const { theme } = useTheme();
 
-    const { selectedRoute } = route.params;
+    const { selectedRoute, routeDeleteMode, selectedTraining } = route.params;
 
     const [heading, setHeading] = useState(0);
     const [region, setRegion] = useState({
@@ -43,6 +43,13 @@ export function RouteDetails({ route, navigation }) {
         }
     };
 
+    const selectRoute = () => {
+        const newRouteId = selectedRoute.id;
+        const selectedTrainingCopy = selectedTraining;
+
+        navigation.navigate('TrainingHistoryEdit', { selectedTraining: selectedTrainingCopy,  newRouteId: newRouteId});
+    };
+
   return (
     <View style={theme.background}>
         <MapView
@@ -64,13 +71,24 @@ export function RouteDetails({ route, navigation }) {
                 <Polyline coordinates={selectedRoute.coordinates} strokeWidth={5} strokeColor="blue" />
             )}
         </MapView>
+        
+        {(routeDeleteMode &&
+            <TouchableOpacity
+                style={theme.touchableItem}
+                onPress={deleteRoute}
+                >
+                <Text style={theme.touchableItemText}>Delete</Text>
+            </TouchableOpacity>
+        )}
 
-        <TouchableOpacity
-            style={theme.touchableItem}
-            onPress={deleteRoute}
-            >
-            <Text style={theme.touchableItemText}>Delete</Text>
-        </TouchableOpacity>
+        {(!routeDeleteMode &&
+            <TouchableOpacity
+                style={theme.touchableItem}
+                onPress={selectRoute}
+                >
+                <Text style={theme.touchableItemText}>Select</Text>
+            </TouchableOpacity>
+        )}
     </View>
   );
 }

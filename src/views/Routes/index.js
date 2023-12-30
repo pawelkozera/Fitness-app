@@ -6,9 +6,10 @@ import { TouchableOpacity, View, Text, SafeAreaView } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { serverConfig } from '../../config/config';
 
-export function Routes({ navigation }) {
+export function Routes({ route, navigation }) {
     const { theme } = useTheme();
     const [routes, setRoutes] = useState([]);
+    const { routeDeleteMode, selectedTraining } = route.params || {};
 
     const fetchRoutes = async () => {
         try {
@@ -26,14 +27,31 @@ export function Routes({ navigation }) {
         <TouchableOpacity
             style={theme.touchableItem}
             onPress={() => {
-                const selectedRoute = routes.find(routes => routes.id === id);
-
-                navigation.navigate('RouteDetail', { selectedRoute });
+                let selectedTrainingCopy = null;
+                const selectedRoute = routes.find(route => route.id === id);
+                let routeDeleteModeCopy = true;
+    
+                if (routeDeleteMode !== undefined) {
+                    routeDeleteModeCopy = false;
+                    selectedTrainingCopy = selectedTraining;
+                    navigation.navigate('TrainingHistoryRouteSelection', {
+                        selectedRoute,
+                        routeDeleteMode: routeDeleteModeCopy,
+                        selectedTraining: selectedTrainingCopy,
+                    });
+                } else {
+                    navigation.navigate('RouteDetail', {
+                        selectedRoute,
+                        routeDeleteMode: routeDeleteModeCopy,
+                        selectedTraining: selectedTrainingCopy,
+                    });
+                }
             }}
         >
             <Text style={theme.touchableItemText}>{"Route " + id}</Text>
         </TouchableOpacity>
     );
+        
 
     useFocusEffect(
         React.useCallback(() => {

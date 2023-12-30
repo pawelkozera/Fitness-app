@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import { serverConfig } from '../../config/config';
@@ -7,11 +7,13 @@ import { styles } from './style';
 
 export function TrainingHistoryEdit({ route, navigation }) {
   const { theme } = useTheme();
-  const { selectedTraining } = route.params;
+  const { selectedTraining, newRouteId } = route.params;
 
   const [editedTrainingType, setEditedTrainingType] = useState(selectedTraining.trainingType);
   const [editedDistance, setEditedDistance] = useState(selectedTraining.distance.toString());
   const [editedDuration, setEditedDuration] = useState(selectedTraining.duration.toString());
+
+  const [routeDetails, setRouteDetails] = useState(null);
 
   const trainingOptions = [
     { label: 'Running', value: 'Running' },
@@ -33,7 +35,7 @@ export function TrainingHistoryEdit({ route, navigation }) {
           pace: editedDistance/editedDuration*60*60,
           calories: editedDistance/editedDuration*60*60/2,
           date: new Date(selectedTraining.date).toISOString(),
-          routeId: selectedTraining.routeId,
+          routeId: newRouteId,
           photoId: selectedTraining.photoId,
         }),
       });
@@ -46,6 +48,37 @@ export function TrainingHistoryEdit({ route, navigation }) {
     } catch (error) {
       console.error('Error updating training', error);
     }
+  };
+
+  const fetchRouteDetails = async (routeId) => {
+    try {
+        const url = `${serverConfig.apiUrl}:${serverConfig.port}/routes/${routeId}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching training details', error);
+        throw error;
+    }
+  };
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const data = await fetchRouteDetails(selectedTraining.routeId);
+              setRouteDetails(data);
+          } catch (error) {
+              console.error('Error fetching training details', error);
+          }
+      };
+
+      fetchData();
+  }, [selectedTraining.routeId]);
+
+  const selectNewRoute = () => {
+    const routeDeleteMode = false;
+
+    navigation.navigate('TrainingHistoryRoutesList', { routeDeleteMode, selectedTraining});
   };
 
   return (
@@ -83,6 +116,11 @@ export function TrainingHistoryEdit({ route, navigation }) {
           onChangeText={setEditedDuration}
           keyboardType="numeric"
         />
+
+        <Text style={styles.detailTitle}>Route: {newRouteId}</Text>
+        <TouchableOpacity style={theme.touchableItem} onPress={selectNewRoute}>
+          <Text style={theme.touchableItemText}>Select route</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity style={theme.touchableItem} onPress={handleSave}>
           <Text style={theme.touchableItemText}>Save</Text>

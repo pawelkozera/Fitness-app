@@ -70,6 +70,12 @@ export function TrainingHistoryDetails({ route, navigation }) {
         }
     };
 
+    const editTraining = () => {
+        const newRouteId = selectedTraining.routeId;
+
+        navigation.navigate('TrainingHistoryEdit', { selectedTraining,  newRouteId});
+    };
+
   return (
     <View style={theme.background}>
         <MapView
@@ -114,7 +120,7 @@ export function TrainingHistoryDetails({ route, navigation }) {
 
             <TouchableOpacity
                 style={theme.touchableItem}
-                onPress={() => navigation.navigate('TrainingHistoryEdit', { selectedTraining })}
+                onPress={editTraining}
                 >
                 <Text style={theme.touchableItemText}>Edit</Text>
             </TouchableOpacity>
