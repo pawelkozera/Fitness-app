@@ -62,6 +62,16 @@
         "longitudeDelta": 0.0005060918462980319
       },
       "id": 2
+    },
+    {
+      "coordinates": [],
+      "region": {
+        "latitude": 51.1868521,
+        "longitude": 21.2622335,
+        "latitudeDelta": 0.001,
+        "longitudeDelta": 0.0005060918462980319
+      },
+      "id": 3
     }
   ],
   "trainings": [
@@ -75,54 +85,31 @@
       "routeId": 1,
       "photoId": 1,
       "id": 1
+    },
+    {
+      "trainingType": "Running",
+      "distance": 0,
+      "duration": 2.023,
+      "pace": 0,
+      "calories": 0,
+      "date": "2023-12-29T14:43:25",
+      "routeId": 3,
+      "photoId": 2,
+      "id": 2
     }
   ],
   "photos": [
     {
       "url": "file:///data/user/0/host.exp.exponent/files/photos/photo_1703854580197.jpg",
       "id": 1
+    },
+    {
+      "url": "file:///data/user/0/host.exp.exponent/files/photos/photo_1703861004057.jpg",
+      "id": 2
     }
   ],
   "pocketWorkouts": [
     {
-      "trainingGoals": [
-        {
-          "id": 1,
-          "name": "Goal 1",
-          "category": "Running"
-        },
-        {
-          "id": 2,
-          "name": "Goal 2",
-          "category": "Running"
-        }
-      ],
-      "routes": [
-        {
-          "id": 1,
-          "coordinates": [
-            {
-              "latitude": 51.1870445,
-              "longitude": 21.2623101
-            },
-            {
-              "latitude": 51.1870494,
-              "longitude": 21.2623461
-            }
-          ]
-        }
-      ],
-      "trainings": [
-        {
-          "trainingType": "Running",
-          "distance": 0,
-          "duration": 0.529,
-          "pace": 0,
-          "calories": 0,
-          "routeId": 1,
-          "id": 1
-        }
-      ],
       "pocketWorkouts": [
         {
           "id": "1",

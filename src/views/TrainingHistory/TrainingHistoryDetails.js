@@ -45,26 +45,6 @@ export function TrainingHistoryDetails({ route, navigation }) {
         setRegion(routeDetails.region);
     }, [routeDetails]);
 
-    const deleteTraining = async () => {
-        try {
-            const url = `${serverConfig.apiUrl}:${serverConfig.port}/trainings/${selectedTraining.id}`;
-            const response = await fetch(url, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.ok) {
-                navigation.goBack();
-            } else {
-                console.error('Error deleting training');
-            }
-        } catch (error) {
-            console.error('Error deleting training', error);
-        }
-    };
-
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', async () => {
             try {
@@ -141,7 +121,7 @@ export function TrainingHistoryDetails({ route, navigation }) {
 
             <TouchableOpacity
                 style={theme.touchableItem}
-                onPress={deleteTraining}
+                onPress={() => navigation.navigate('TrainingHistoryDelete', { selectedTraining })}
                 >
                 <Text style={theme.touchableItemText}>Delete</Text>
             </TouchableOpacity>

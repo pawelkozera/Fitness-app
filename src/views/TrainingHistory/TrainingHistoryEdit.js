@@ -33,7 +33,8 @@ export function TrainingHistoryEdit({ route, navigation }) {
           pace: editedDistance/editedDuration*60*60,
           calories: editedDistance/editedDuration*60*60/2,
           date: new Date(selectedTraining.date).toISOString(),
-          routeId: 1,
+          routeId: selectedTraining.routeId,
+          photoId: selectedTraining.photoId,
         }),
       });
 
