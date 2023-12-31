@@ -12,7 +12,8 @@ import { RouteDetails } from "./Routes/RouteDetails";
 import { TrainingHistoryEdit } from "./TrainingHistory/TrainingHistoryEdit";
 import { SaveTrainingPhoto } from "./MainScreen/saveTrainingPhoto";
 import { TrainingHistoryDelete } from "./TrainingHistory/TrainingHistoryDelete";
+import { TrainingHistoryAdd } from "./TrainingHistory/TrainingHistoryAdd";
 
 
 export { WeeklyAchievements, MainScreen, Settings, PocketWorkouts, TrainingHistory, Routes, TrainingGoals, AddTrainingGoal, 
-    SaveTraining, TrainingHistoryDetails, RouteDetails, TrainingHistoryEdit, SaveTrainingPhoto, TrainingHistoryDelete}
+    SaveTraining, TrainingHistoryDetails, RouteDetails, TrainingHistoryEdit, SaveTrainingPhoto, TrainingHistoryDelete, TrainingHistoryAdd}

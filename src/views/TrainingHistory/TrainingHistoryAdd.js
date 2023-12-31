@@ -5,13 +5,14 @@ import { serverConfig } from '../../config/config';
 import { SelectList } from 'react_native_simple_dropdown_select_list';
 import { styles } from './style';
 
-export function TrainingHistoryEdit({ route, navigation }) {
+export function TrainingHistoryAdd({ route, navigation }) {
   const { theme } = useTheme();
-  const { selectedTraining, newRouteId } = route.params;
 
-  const [editedTrainingType, setEditedTrainingType] = useState(selectedTraining.trainingType);
-  const [editedDistance, setEditedDistance] = useState(selectedTraining.distance.toString());
-  const [editedDuration, setEditedDuration] = useState(selectedTraining.duration.toString());
+  const { newRouteId } = route.params;
+
+  const [trainingType, setTrainingType] = useState("Running");
+  const [distance, setDistance] = useState("0");
+  const [duration, setDuration] = useState("0");
 
   const [routeDetails, setRouteDetails] = useState(null);
 
@@ -20,34 +21,12 @@ export function TrainingHistoryEdit({ route, navigation }) {
     { label: 'Cycling', value: 'Cycling' },
   ];
 
-  const handleSave = async () => {
-    try {
-      const url = `${serverConfig.apiUrl}:${serverConfig.port}/trainings/${selectedTraining.id}`;
-      const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          trainingType: editedTrainingType,
-          distance: parseFloat(editedDistance),
-          duration: parseInt(editedDuration, 10),
-          pace: editedDistance/editedDuration*60*60,
-          calories: editedDistance/editedDuration*60*60/2,
-          date: new Date(selectedTraining.date).toISOString(),
-          routeId: newRouteId,
-          photoId: selectedTraining.photoId,
-        }),
-      });
+  const selectNewRoute = () => {
+    const routeDeleteMode = false;
+    const isTrainingEdit = false;
+    const selectedTraining = null;
 
-      if (response.ok) {
-        navigation.goBack();
-      } else {
-        console.error('Error updating training');
-      }
-    } catch (error) {
-      console.error('Error updating training', error);
-    }
+    navigation.navigate('TrainingHistoryRoutesList', { routeDeleteMode, selectedTraining, isTrainingEdit});
   };
 
   const fetchRouteDetails = async (routeId) => {
@@ -63,23 +42,50 @@ export function TrainingHistoryEdit({ route, navigation }) {
   };
 
   useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const data = await fetchRouteDetails(selectedTraining.routeId);
-              setRouteDetails(data);
-          } catch (error) {
-              console.error('Error fetching training details', error);
-          }
-      };
+    const fetchData = async () => {
+        try {
+            const data = await fetchRouteDetails(newRouteId);
+            setRouteDetails(data);
+        } catch (error) {
+            console.error('Error fetching training details', error);
+        }
+    };
 
-      fetchData();
-  }, [selectedTraining.routeId]);
+    fetchData();
+  }, [newRouteId]);
 
-  const selectNewRoute = () => {
-    const routeDeleteMode = false;
-    const isTrainingEdit = true;
+  const saveTraining = () => {
+    const isCustomTraining = true;
+    const trainingTypeCopy = trainingType;
+    const distanceCopy = parseInt(distance, 10);
+    let durationCopy = parseInt(duration, 10);
+    let paceCopy = 0;
+    let caloriesCopy = 0;
 
-    navigation.navigate('TrainingHistoryRoutesList', { routeDeleteMode, selectedTraining, isTrainingEdit});
+    if (durationCopy != 0) {
+      paceCopy = distanceCopy/durationCopy*60*60;
+      caloriesCopy = distanceCopy/durationCopy*60*60/2;
+    }
+
+    const coordinatesCopy = routeDetails.coordinates;
+    const regionCopy = routeDetails.region;
+    const headingCopy = null;
+    const routeIdCopy = newRouteId;
+
+    const trainingData = {
+      selectedTraining: trainingTypeCopy,
+      totalDistance: distanceCopy,
+      duration: durationCopy,
+      pace: paceCopy,
+      calories: caloriesCopy,
+      coordinates: coordinatesCopy,
+      region: regionCopy,
+      heading: headingCopy,
+      routeId: routeIdCopy,
+      isCustomTraining: isCustomTraining,
+    };
+
+    navigation.navigate('TrainingHistorySave', { trainingData });
   };
 
   return (
@@ -89,13 +95,13 @@ export function TrainingHistoryEdit({ route, navigation }) {
         <SelectList
             data={trainingOptions}
             whatWithSelected={(value) => {
-                setEditedTrainingType(value);
+                setTrainingType(value);
             }}
             maxHeightList={150}
-            placeholder={editedTrainingType}
+            placeholder={trainingType}
             notFoundText="Date not found"
             valueToBeSaved="value"
-            afterSelecting={(value) => setEditedTrainingType(value)}
+            afterSelecting={(value) => setTrainingType(value)}
             containerStyle={{ width: 200, borderColor: 'black' }}
             containerDataStyle={{ width: 200, borderColor: 'gray' }}
             infoFontStyle={{ fontSize: 18, fontWeight: 'bold' }}
@@ -105,16 +111,16 @@ export function TrainingHistoryEdit({ route, navigation }) {
         <Text style={styles.detailTitle}>Distance (km):</Text>
         <TextInput
           style={styles.editInput}
-          value={editedDistance}
-          onChangeText={setEditedDistance}
+          value={distance}
+          onChangeText={setDistance}
           keyboardType="numeric"
         />
 
         <Text style={styles.detailTitle}>Duration (s):</Text>
         <TextInput
           style={styles.editInput}
-          value={editedDuration}
-          onChangeText={setEditedDuration}
+          value={duration}
+          onChangeText={setDuration}
           keyboardType="numeric"
         />
 
@@ -123,7 +129,7 @@ export function TrainingHistoryEdit({ route, navigation }) {
           <Text style={theme.touchableItemText}>Select route</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={theme.touchableItem} onPress={handleSave}>
+        <TouchableOpacity style={theme.touchableItem} onPress={saveTraining}>
           <Text style={theme.touchableItemText}>Save</Text>
         </TouchableOpacity>
       </View>

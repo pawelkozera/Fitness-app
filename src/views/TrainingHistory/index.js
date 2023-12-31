@@ -75,9 +75,21 @@ export function TrainingHistory({ navigation }) {
         }, [])
     );
 
+    const addTraining = () => {
+      const newRouteId = 1;
+      navigation.navigate('TrainingHistoryAdd', {newRouteId});
+    };
+
     return (
         <SafeAreaView style={theme.background}>
           <View style={theme.container}>
+            <TouchableOpacity
+                style={theme.touchableItem}
+                onPress={addTraining}
+                >
+                <Text style={theme.touchableItemText}>Add new</Text>
+            </TouchableOpacity>
+
             <FlatList
               data={trainings}
               keyExtractor={(item) => item.id.toString()}

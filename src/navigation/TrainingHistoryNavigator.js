@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { TrainingHistory, TrainingHistoryDetails, TrainingHistoryEdit, TrainingHistoryDelete, RouteDetails, Routes } from "../views";
+import { TrainingHistory, TrainingHistoryDetails, TrainingHistoryEdit, TrainingHistoryDelete, RouteDetails, Routes, TrainingHistoryAdd, SaveTrainingPhoto } from "../views";
 import { useTheme } from "../context/ThemeContext";
 
 const Stack = createStackNavigator();
@@ -48,6 +48,16 @@ export default function TrainingHistoryNavigator() {
                     name="TrainingHistoryRouteSelection"
                     component={RouteDetails}
                     options={{title: 'Route Selection'}} 
+                />
+                <Stack.Screen 
+                    name="TrainingHistoryAdd"
+                    component={TrainingHistoryAdd}
+                    options={{title: 'Add training'}} 
+                />
+                <Stack.Screen 
+                    name="TrainingHistorySave"
+                    component={SaveTrainingPhoto}
+                    options={{title: 'Save training'}} 
                 />
         </Stack.Navigator>
     );

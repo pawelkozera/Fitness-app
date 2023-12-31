@@ -61,9 +61,9 @@ export function TrainingHistoryDelete({ route, navigation }) {
         }
       };
 
-    const deleteRoute = async () => {
+    const deleteRoute = async (routeId) => {
         try {
-            const url = `${serverConfig.apiUrl}:${serverConfig.port}/routes/${selectedTraining.routeId}`;
+            const url = `${serverConfig.apiUrl}:${serverConfig.port}/routes/${routeId}`;
             const response = await fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -74,7 +74,7 @@ export function TrainingHistoryDelete({ route, navigation }) {
             if (response.ok) {
                 console.log("Deleting route successfully");
             } else {
-                console.error('Error deleting route', response.status, response.statusText);
+                console.error('Error response deleting route', response.status, response.statusText);
             }
         } catch (error) {
             console.error('Error deleting route', error);
@@ -102,20 +102,24 @@ export function TrainingHistoryDelete({ route, navigation }) {
                 console.error('Error fetching training details', error);
             }
         };
-    
-        fetchData();
+        
+        if (selectedTraining.photoId !== null) {
+            fetchData();
+        }
     }, [selectedTraining.photoId]);
 
     const deleteWithRoute = async () => {
-        await deleteTraining();
         if (selectedTraining.photoId !== null) {
             await deletePhotos();
             await deletePhotoFromDevice(photoDetails.url);
         }
-        await deleteRoute();
+
+        await deleteRoute(selectedTraining.routeId);
+        await deleteTraining();
+        
         navigation.navigate('TrainingHistoryList');
     };
-
+    
     const deleteWithoutRoute = async () => {
         await deleteTraining();
         if (selectedTraining.photoId !== null) {
@@ -124,6 +128,7 @@ export function TrainingHistoryDelete({ route, navigation }) {
         }
         navigation.navigate('TrainingHistoryList');
     };
+    
 
   return (
     <View style={theme.background}>

@@ -9,7 +9,7 @@ import { styles } from "./style";
 export function RouteDetails({ route, navigation }) {
     const { theme } = useTheme();
 
-    const { selectedRoute, routeDeleteMode, selectedTraining } = route.params;
+    const { selectedRoute, routeDeleteMode, selectedTraining, isTrainingEdit } = route.params;
 
     const [heading, setHeading] = useState(0);
     const [region, setRegion] = useState({
@@ -44,10 +44,17 @@ export function RouteDetails({ route, navigation }) {
     };
 
     const selectRoute = () => {
-        const newRouteId = selectedRoute.id;
-        const selectedTrainingCopy = selectedTraining;
+        if (isTrainingEdit) {
+            const newRouteId = selectedRoute.id;
+            const selectedTrainingCopy = selectedTraining;
 
-        navigation.navigate('TrainingHistoryEdit', { selectedTraining: selectedTrainingCopy,  newRouteId: newRouteId});
+            navigation.navigate('TrainingHistoryEdit', { selectedTraining: selectedTrainingCopy,  newRouteId: newRouteId });
+        }
+        else {
+            const newRouteId = selectedRoute.id;
+
+            navigation.navigate('TrainingHistoryAdd', { newRouteId: newRouteId });
+        }
     };
 
   return (

@@ -7,7 +7,7 @@ import { serverConfig } from '../../config/config';
 
 export function SaveTrainingPhoto({ route, navigation }) {
   const { theme } = useTheme();
-  const { selectedTraining, totalDistance, duration, pace, calories, coordinates, region, heading, routeId} = route.params.trainingData;
+  const { selectedTraining, totalDistance, duration, pace, calories, coordinates, region, heading, routeId, isCustomTraining} = route.params.trainingData;
 
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState(null);
@@ -96,7 +96,12 @@ export function SaveTrainingPhoto({ route, navigation }) {
 
             if (response.ok) {
                 console.log('Training saved');
-                navigation.navigate('MainScreenStartTraining');
+                if (!isCustomTraining) {
+                  navigation.navigate('MainScreenStartTraining');
+                }
+                else {
+                  navigation.navigate('TrainingHistoryList');
+                }
             } else {
                 console.error('Error training save', response.statusText);
             }
@@ -134,7 +139,12 @@ export function SaveTrainingPhoto({ route, navigation }) {
 
         if (response.ok) {
         console.log('Training saved');
-        navigation.navigate('MainScreenStartTraining');
+        if (!isCustomTraining) {
+          navigation.navigate('MainScreenStartTraining');
+        }
+        else {
+          navigation.navigate('TrainingHistoryList');
+        }
         } else {
         console.error('Error training save', response.statusText);
         }

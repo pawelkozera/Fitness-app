@@ -43,6 +43,7 @@ export function SaveTraining({ route, navigation }) {
 
   const saveTrainingPhoto = () => {
     console.log(routeId);
+    const isCustomTraining = false;
     const trainingData = {
       selectedTraining,
       totalDistance,
@@ -52,7 +53,8 @@ export function SaveTraining({ route, navigation }) {
       coordinates,
       region,
       heading,
-      routeId
+      routeId,
+      isCustomTraining
     };
 
     navigation.navigate('MainScreenSaveTrainingPhoto', { trainingData });

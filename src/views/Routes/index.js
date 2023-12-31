@@ -9,7 +9,7 @@ import { serverConfig } from '../../config/config';
 export function Routes({ route, navigation }) {
     const { theme } = useTheme();
     const [routes, setRoutes] = useState([]);
-    const { routeDeleteMode, selectedTraining } = route.params || {};
+    const { routeDeleteMode, selectedTraining, isTrainingEdit } = route.params || {};
 
     const fetchRoutes = async () => {
         try {
@@ -30,20 +30,24 @@ export function Routes({ route, navigation }) {
                 let selectedTrainingCopy = null;
                 const selectedRoute = routes.find(route => route.id === id);
                 let routeDeleteModeCopy = true;
+                let isTrainingEditCopy = false;
     
                 if (routeDeleteMode !== undefined) {
                     routeDeleteModeCopy = false;
                     selectedTrainingCopy = selectedTraining;
+                    isTrainingEditCopy = isTrainingEdit;
                     navigation.navigate('TrainingHistoryRouteSelection', {
                         selectedRoute,
                         routeDeleteMode: routeDeleteModeCopy,
                         selectedTraining: selectedTrainingCopy,
+                        isTrainingEdit: isTrainingEditCopy,
                     });
                 } else {
                     navigation.navigate('RouteDetail', {
                         selectedRoute,
                         routeDeleteMode: routeDeleteModeCopy,
                         selectedTraining: selectedTrainingCopy,
+                        isTrainingEdit: isTrainingEditCopy,
                     });
                 }
             }}
