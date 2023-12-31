@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { styles } from "./style";
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { serverConfig } from '../../config/config';
 
 
@@ -15,6 +15,32 @@ export function Register({ navigation }) {
     const [email, setEmail] = useState('');
 
     const handleRegister = async () => {
+        if (username.length < 4) {
+            Alert.alert('Username', 'Username must be at least 4 characters long.');
+            return;
+        }
+
+        if (password.length < 6) {
+            Alert.alert('Weak Password', 'Password must be at least 6 characters long.');
+            return;
+        }
+
+        if (name.length < 1) {
+            Alert.alert('Name', 'Please enter a name.');
+            return;
+        }
+
+        if (surname.length < 1) {
+            Alert.alert('Surname', 'Please enter a surname.');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            Alert.alert('Invalid Email', 'Please enter a valid email address.');
+            return;
+        }
+
         const newUser = {
             username: username,
             password: password,
@@ -71,7 +97,7 @@ export function Register({ navigation }) {
                             style={style.input}
                             placeholder="Name"
                             placeholderTextColor={theme.textInputPlaceholder}
-                            value={username}
+                            value={name}
                             onChangeText={setName}
                         />
                     </View>
@@ -80,7 +106,7 @@ export function Register({ navigation }) {
                             style={style.input}
                             placeholder="Surname"
                             placeholderTextColor={theme.textInputPlaceholder}
-                            value={username}
+                            value={surname}
                             onChangeText={setSurname}
                         />
                     </View>
@@ -89,7 +115,7 @@ export function Register({ navigation }) {
                             style={style.input}
                             placeholder="E-mail"
                             placeholderTextColor={theme.textInputPlaceholder}
-                            value={username}
+                            value={email}
                             onChangeText={setEmail}
                         />
                     </View>
