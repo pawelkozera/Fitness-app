@@ -1,4 +1,14 @@
 {
+  "user": [
+    {
+      "id": 1,
+      "username": "alfred1",
+      "password": "password1",
+      "name": "Alfred",
+      "surname": "Thomson",
+      "email": "alfred@gmail.com"
+    }
+  ],
   "trainingGoals": [
     {
       "id": 1,
@@ -16,8 +26,52 @@
       "id": 3
     }
   ],
-  "routes": [],
-  "trainings": [],
+  "routes": [
+    {
+      "coordinates": [],
+      "region": {
+        "latitude": 51.1871043,
+        "longitude": 21.262305,
+        "latitudeDelta": 0.001,
+        "longitudeDelta": 0.0005060918462980319
+      },
+      "id": 1
+    },
+    {
+      "coordinates": [],
+      "region": {
+        "latitude": 51.1871043,
+        "longitude": 21.262305,
+        "latitudeDelta": 0.001,
+        "longitudeDelta": 0.0005060918462980319
+      },
+      "id": 2
+    }
+  ],
+  "trainings": [
+    {
+      "trainingType": "Running",
+      "distance": 0,
+      "duration": 0.549,
+      "pace": 0,
+      "calories": 0,
+      "date": "2023-12-31T11:24:14",
+      "routeId": 1,
+      "photoId": null,
+      "id": 1
+    },
+    {
+      "trainingType": "Running",
+      "distance": 0,
+      "duration": 0.533,
+      "pace": 0,
+      "calories": 0,
+      "date": "2023-12-31T11:24:20",
+      "routeId": 2,
+      "photoId": null,
+      "id": 2
+    }
+  ],
   "photos": [],
   "pocketWorkouts": [
     {

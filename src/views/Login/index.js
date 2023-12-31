@@ -1,0 +1,83 @@
+import React, { useState } from 'react';
+import { useTheme } from '../../context/ThemeContext';
+import { styles } from "./style";
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native';
+
+export function Login({ navigation }) {
+    const { theme } = useTheme();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = () => {
+        navigation.navigate('DrawerNavigation');
+    };
+
+    const handleRegister = () => {
+        navigation.navigate('Register');
+    };
+
+    return (
+        <View style={theme.background}>
+            <View style={theme.container}>
+                <View style={{ flex: 1, top: 60 }}>
+                    <Text style={styles.title}>Login</Text>
+                    <View style={style.inputContainer}>
+                        <TextInput
+                            style={style.input}
+                            placeholder="Username"
+                            placeholderTextColor={theme.textInputPlaceholder}
+                            value={username}
+                            onChangeText={setUsername}
+                        />
+                    </View>
+                    <View style={style.inputContainer}>
+                        <TextInput
+                            style={style.input}
+                            placeholder="Password"
+                            placeholderTextColor={theme.textInputPlaceholder}
+                            secureTextEntry
+                            value={password}
+                            onChangeText={setPassword}
+                        />
+                    </View>
+                    <TouchableOpacity style={style.loginButton} onPress={handleLogin}>
+                        <Text style={theme.text}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={style.registerButton} onPress={handleRegister}>
+                        <Text style={theme.text}>Register</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    );
+}
+
+const style = {
+    inputContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        marginBottom: 15,
+        paddingHorizontal: 100,
+        paddingVertical: 10,
+        elevation: 3,
+        marginTop: 30
+    },
+    input: {
+        fontSize: 16,
+        color: '#333',
+    },
+    loginButton: {
+        backgroundColor: '#007BFF',
+        borderRadius: 10,
+        paddingVertical: 15,
+        alignItems: 'center',
+        marginTop: 80
+    },
+    registerButton: {
+        backgroundColor: '#007BFF',
+        borderRadius: 10,
+        paddingVertical: 15,
+        alignItems: 'center',
+        marginTop: 20
+    }
+};

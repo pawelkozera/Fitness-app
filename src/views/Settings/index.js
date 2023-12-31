@@ -11,6 +11,10 @@ export function Settings({ navigation }) {
     const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
     const toggleNotifications = () => setIsNotificationsEnabled(previousState => !previousState);
 
+    const handleLogout = () => {
+        navigation.pop(2);
+    };
+
     return (
         <View style={theme.background}>
             <View style={theme.container}>
@@ -21,15 +25,6 @@ export function Settings({ navigation }) {
                         thumbColor={isDarkTheme ? theme.switch.thumbTrueColor : theme.switch.thumbFalseColor}
                         onValueChange={toggleTheme} 
                         value={isDarkTheme}
-                    />
-                </View>
-                <View style={[theme.backgroundItem, {flexDirection: 'row'}]}>
-                    <Text style={[theme.text, {marginRight: 80}]}>Notifications</Text>
-                    <Switch
-                        trackColor={{ false: theme.switch.trackFalseColor, true: theme.switch.trackTrueColor}}
-                        thumbColor={isNotificationsEnabled ? theme.switch.thumbTrueColor : theme.switch.thumbFalseColor}
-                        onValueChange={toggleNotifications}
-                        value={isNotificationsEnabled}
                     />
                 </View>
                 <View style={{flex: 0.85}}>
@@ -44,22 +39,18 @@ export function Settings({ navigation }) {
                                 <Text style={[styles.detailTitle, {color: theme.detail.titleColor}]}>Name:</Text>
                                 <Text style={[styles.detailTitle, {color: theme.detail.titleColor}]}>Surname:</Text>
                                 <Text style={[styles.detailTitle, {color: theme.detail.titleColor}]}>E-mail:</Text>
-                                <Text style={[styles.detailTitle, {color: theme.detail.titleColor}]}>Phone:</Text>
-                                <Text style={[styles.detailTitle, {color: theme.detail.titleColor}]}>First login:</Text>
                             </View>
                             <View style={{alignItems: 'flex-end'}}>
                                 <Text style={[styles.detailText, {color: theme.detail.textColor}]}>John</Text>
                                 <Text style={[styles.detailText, {color: theme.detail.textColor}]}>Wick</Text>
                                 <Text style={[styles.detailText, {color: theme.detail.textColor}]}>john@email.com</Text>
-                                <Text style={[styles.detailText, {color: theme.detail.textColor}]}>100 200 300</Text>
-                                <Text style={[styles.detailText, {color: theme.detail.textColor}]}>12.11.2023</Text>
                             </View>
                         </View>
                     )}
                 </View>
                 <TouchableOpacity
                     style={styles.logout}
-                    onPress={() => { }} >
+                    onPress={handleLogout} >
                     <Text style={styles.logoutText}>Log Out</Text>
                 </TouchableOpacity>
             </View>

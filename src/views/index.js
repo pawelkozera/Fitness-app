@@ -13,7 +13,10 @@ import { TrainingHistoryEdit } from "./TrainingHistory/TrainingHistoryEdit";
 import { SaveTrainingPhoto } from "./MainScreen/saveTrainingPhoto";
 import { TrainingHistoryDelete } from "./TrainingHistory/TrainingHistoryDelete";
 import { TrainingHistoryAdd } from "./TrainingHistory/TrainingHistoryAdd";
+import { Register } from "./Register";
+import { Login } from "./Login";
 
 
 export { WeeklyAchievements, MainScreen, Settings, PocketWorkouts, TrainingHistory, Routes, TrainingGoals, AddTrainingGoal, 
-    SaveTraining, TrainingHistoryDetails, RouteDetails, TrainingHistoryEdit, SaveTrainingPhoto, TrainingHistoryDelete, TrainingHistoryAdd}
+    SaveTraining, TrainingHistoryDetails, RouteDetails, TrainingHistoryEdit, SaveTrainingPhoto, TrainingHistoryDelete, TrainingHistoryAdd,
+    Login, Register}
