@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { styles } from "./style";
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { serverConfig } from '../../config/config';
+
 
 export function Register({ navigation }) {
     const { theme } = useTheme();
@@ -12,7 +14,32 @@ export function Register({ navigation }) {
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
+        const newUser = {
+            username: username,
+            password: password,
+            name: name,
+            surname: surname,
+            email: email,
+        };
+
+        try {
+            const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+            });
+
+            if (response.ok) {
+                navigation.goBack();
+            } else {
+                console.error('Adding user error', response.statusText);
+            }
+        } catch (error) {
+            console.error('POST error', error);
+        }
     };
 
     return (
