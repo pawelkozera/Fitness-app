@@ -1,15 +1,41 @@
 import React, { useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
 import { styles } from "./style";
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { serverConfig } from '../../config/config';
 
 export function Login({ navigation }) {
     const { theme } = useTheme();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        navigation.navigate('DrawerNavigation');
+    const fetchUser = async () => {
+        try {
+            const url = `${serverConfig.apiUrl}:${serverConfig.port}/users?username=${username}`
+            const response = await fetch(url);
+            const data = await response.json();
+    
+            return data[0];
+        } catch (error) {
+            console.error('Error fetching routes', error);
+        }
+    };
+
+    const handleLogin = async () => {
+        const userData = await fetchUser();
+        
+        if (!userData) {
+            Alert.alert('Incorrect username', 'Incorrect username, please try again.');
+            return;
+        }
+
+        if (password === userData.password) {
+            navigation.navigate('DrawerNavigation');
+        }
+        else {
+            Alert.alert('Incorrect password', 'Incorrect password, please try again.');
+            return;
+        }
     };
 
     const handleRegister = () => {

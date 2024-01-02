@@ -50,6 +50,14 @@ export function Register({ navigation }) {
         };
 
         try {
+            const checkUserResponse = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/users?username=${username}`);
+            const existingUser = await checkUserResponse.json();
+
+            if (existingUser.length > 0) {
+                Alert.alert('Username Exists', 'This username is already taken. Please choose another one.');
+                return;
+            }
+
             const response = await fetch(`${serverConfig.apiUrl}:${serverConfig.port}/users`, {
                 method: 'POST',
                 headers: {
