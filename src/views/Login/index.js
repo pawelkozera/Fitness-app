@@ -3,11 +3,13 @@ import { useTheme } from '../../context/ThemeContext';
 import { styles } from "./style";
 import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { serverConfig } from '../../config/config';
+import { useUser } from '../../context/UserContext';
 
 export function Login({ navigation }) {
     const { theme } = useTheme();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { user, login } = useUser();
 
     const fetchUser = async () => {
         try {
@@ -24,12 +26,19 @@ export function Login({ navigation }) {
     const handleLogin = async () => {
         const userData = await fetchUser();
         
+        const userDataContext = {
+            name: userData.name,
+            surname: userData.surname,
+            email: userData.email
+          };
+        
         if (!userData) {
             Alert.alert('Incorrect username', 'Incorrect username, please try again.');
             return;
         }
 
         if (password === userData.password) {
+            login(userDataContext);
             navigation.navigate('DrawerNavigation');
         }
         else {

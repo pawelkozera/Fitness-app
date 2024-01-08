@@ -3,15 +3,19 @@ import { useTheme } from "../../context/ThemeContext";
 import {Button, Text, TouchableOpacity, View} from "react-native";
 import { useState } from "react";
 import { styles } from "./style";
+import { useUser } from '../../context/UserContext';
 
 
 export function Settings({ navigation }) {
     const { theme, toggleTheme, isDarkTheme } = useTheme(); 
+    const { user } = useUser();
+    const { logout } = useUser();
     const [expanded, setExpanded] = useState(false);
     const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
     const toggleNotifications = () => setIsNotificationsEnabled(previousState => !previousState);
 
     const handleLogout = () => {
+        logout();
         navigation.pop(2);
     };
 
@@ -41,9 +45,9 @@ export function Settings({ navigation }) {
                                 <Text style={[styles.detailTitle, {color: theme.detail.titleColor}]}>E-mail:</Text>
                             </View>
                             <View style={{alignItems: 'flex-end'}}>
-                                <Text style={[styles.detailText, {color: theme.detail.textColor}]}>John</Text>
-                                <Text style={[styles.detailText, {color: theme.detail.textColor}]}>Wick</Text>
-                                <Text style={[styles.detailText, {color: theme.detail.textColor}]}>john@email.com</Text>
+                                <Text style={[styles.detailText, {color: theme.detail.textColor}]}>{user ? user.name : ''}</Text>
+                                <Text style={[styles.detailText, {color: theme.detail.textColor}]}>{user ? user.surname : ''}</Text>
+                                <Text style={[styles.detailText, {color: theme.detail.textColor}]}>{user ? user.email : ''}</Text>
                             </View>
                         </View>
                     )}
