@@ -27,7 +27,9 @@ export function WorkoutDetails({ route, navigation }) {
     const renderExerciseItem = ({ item }) => (
         <TouchableOpacity 
             style={theme.touchableItem} 
-            onPress={() => navigation.navigate('ExerciseDetails', { exerciseID: item.id })}
+            onPress={() => {
+                navigation.navigate('ExerciseDetails', { exerciseDetails: item })
+            }}
         >
             <Text style={theme.touchableItemText}>{item.name}</Text>
         </TouchableOpacity>

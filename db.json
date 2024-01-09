@@ -82,23 +82,23 @@
           "exercises": [
             {
               "id": "1",
-              "name": "Airborne Workout"
+              "name": "Airborne Workout",
+              "imgName": "airborne"
             },
             {
               "id": "2",
-              "name": "Running"
+              "name": "Artemis Workout",
+              "imgName": "artemis"
             },
             {
               "id": "3",
-              "name": "Cycling"
+              "name": "Athena Workout",
+              "imgName": "athena"
             },
             {
               "id": "4",
-              "name": "Jump Rope"
-            },
-            {
-              "id": "5",
-              "name": "HIIT"
+              "name": "Bacon Workout",
+              "imgName": "bacon"
             }
           ]
         },
@@ -108,23 +108,18 @@
           "exercises": [
             {
               "id": "1",
-              "name": "Push-Ups"
+              "name": "Amazon Workout",
+              "imgName": "amazon"
             },
             {
               "id": "2",
-              "name": "Pull-Ups"
+              "name": "Armory Workout",
+              "imgName": "armory"
             },
             {
               "id": "3",
-              "name": "Squats"
-            },
-            {
-              "id": "4",
-              "name": "Deadlifts"
-            },
-            {
-              "id": "5",
-              "name": "Bench Press"
+              "name": "Banshee Workout",
+              "imgName": "banshee"
             }
           ]
         },
@@ -134,49 +129,13 @@
           "exercises": [
             {
               "id": "1",
-              "name": "Crunches"
+              "name": "Codex Workout",
+              "imgName": "codex"
             },
             {
               "id": "2",
-              "name": "Plank"
-            },
-            {
-              "id": "3",
-              "name": "Russian Twists"
-            },
-            {
-              "id": "4",
-              "name": "Bicycle Kicks"
-            },
-            {
-              "id": "5",
-              "name": "Leg Raises"
-            }
-          ]
-        },
-        {
-          "id": "4",
-          "title": "Stretching",
-          "exercises": [
-            {
-              "id": "1",
-              "name": "Hamstring Stretch"
-            },
-            {
-              "id": "2",
-              "name": "Calf Stretch"
-            },
-            {
-              "id": "3",
-              "name": "Shoulder Stretch"
-            },
-            {
-              "id": "4",
-              "name": "Quadriceps Stretch"
-            },
-            {
-              "id": "5",
-              "name": "Triceps Stretch"
+              "name": "Boxer Abs Workout",
+              "imgName": "boxerabs"
             }
           ]
         }
