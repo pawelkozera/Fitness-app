@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, ToastAndroid, View } from "react-native";
 import { useTheme } from "../../context/ThemeContext";
+import { styles } from "./style";
 import { serverConfig } from '../../config/config';
 
 export function WeeklyAchievements({ navigation }) {
@@ -14,7 +15,7 @@ export function WeeklyAchievements({ navigation }) {
         const data = await response.json();
         setTrainings(data);
       } catch (error) {
-        console.error('Błąd podczas pobierania danych treningowych', error);
+        console.error('Error fetching trainings', error);
       }
     };
 
@@ -59,7 +60,8 @@ export function WeeklyAchievements({ navigation }) {
   return (
     <View style={theme.background}>
       <View style={theme.container}>
-      <Text style={theme.text}> {lastMonday.toLocaleDateString('pl-PL', {month: 'numeric', day: 'numeric'})} - {todayDate.toLocaleDateString('pl-PL', { month: 'numeric', day: 'numeric' })}</Text>
+        <Text style={styles.title}>Weekly Achievements</Text>
+        <Text style={theme.text}> {lastMonday.toLocaleDateString('pl-PL', {month: 'numeric', day: 'numeric'})} - {todayDate.toLocaleDateString('pl-PL', { month: 'numeric', day: 'numeric' })}</Text>
 
         <Text style={theme.text}>Distance: {weeklySummary.distance} km</Text>
         <Text style={theme.text}>Calories: {weeklySummary.calories} kcal</Text>
