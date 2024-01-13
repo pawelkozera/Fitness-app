@@ -46,6 +46,16 @@
         "longitudeDelta": 0.0005060918462980319
       },
       "id": 2
+    },
+    {
+      "coordinates": [],
+      "region": {
+        "latitude": 50.8782336,
+        "longitude": 20.6436557,
+        "latitudeDelta": 0.001,
+        "longitudeDelta": 0.0005060918462980319
+      },
+      "id": 3
     }
   ],
   "trainings": [
@@ -70,9 +80,25 @@
       "routeId": 2,
       "photoId": null,
       "id": 2
+    },
+    {
+      "trainingType": "Running",
+      "distance": 0,
+      "duration": 0.533,
+      "pace": 0,
+      "calories": 0,
+      "date": "2024-01-10T20:42:35",
+      "routeId": 3,
+      "photoId": 1,
+      "id": 3
     }
   ],
-  "photos": [],
+  "photos": [
+    {
+      "url": "file:///data/user/0/host.exp.exponent/files/photos/photo_1704919352438.jpg",
+      "id": 1
+    }
+  ],
   "pocketWorkouts": [
     {
       "pocketWorkouts": [
