@@ -63,9 +63,9 @@ export function WeeklyAchievements({ navigation }) {
         <Text style={styles.title}>Weekly Achievements</Text>
         <Text style={theme.text}> {lastMonday.toLocaleDateString('pl-PL', {month: 'numeric', day: 'numeric'})} - {todayDate.toLocaleDateString('pl-PL', { month: 'numeric', day: 'numeric' })}</Text>
 
-        <Text style={theme.text}>Distance: {weeklySummary.distance} km</Text>
-        <Text style={theme.text}>Calories: {weeklySummary.calories} kcal</Text>
-        <Text style={theme.text}>Duration: {weeklySummary.duration} minutes</Text>
+        <Text style={theme.text}>Distance: {weeklySummary.distance.toFixed(2)} km</Text>
+        <Text style={theme.text}>Calories: {weeklySummary.calories.toFixed(2)} kcal</Text>
+        <Text style={theme.text}>Duration: {weeklySummary.duration.toFixed(2)} minutes</Text>
         <Text style={theme.text}>Average Pace: {weeklySummary.pace.toFixed(2)} km/h</Text>
       </View>
     </View>
